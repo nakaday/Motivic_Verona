@@ -1,0 +1,147 @@
+\usepackage{standalone}
+\usepackage{amssymb, amsthm, amsmath}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{stmaryrd}
+\usepackage{tabu}
+%Theorem numbering
+\usepackage{thmtools}
+% \usepackage{thm-restate}
+\usepackage{cleveref}
+
+%graphics
+\usepackage{graphicx}
+
+\usetikzlibrary{matrix,arrows}
+
+
+%Custom Environments
+% Fix latex
+\def\smallskip{\vskip\smallskipamount}
+\def\medskip{\vskip\medskipamount}
+\def\bigskip{\vskip\bigskipamount}
+
+% Hand made theorem
+
+%Counter for theorems, definitions, everything.
+\newcounter{count}[section]
+
+%End a section with a symbol
+\def\endenv{\hfill \ensuremath\leftslice \smallskip}
+\def\nosliceendenv{\hfill \smallskip}
+
+\def\begintheorem{\par\medskip\noindent\refstepcounter{count}\hbox{\bf Theorem \arabic{chapter}.\arabic{section}.\arabic{count}.}
+\it \ignorespaces
+}
+
+\def\beginproposition{\par\medskip\noindent\refstepcounter{count}\hbox{\bf Proposition \arabic{chapter}.\arabic{section}.\arabic{count}.}
+\it \ignorespaces
+}
+
+\def\begincorollary{\par\medskip\noindent\refstepcounter{count}\hbox{\bf Corollary \arabic{chapter}.\arabic{section}.\arabic{count}.}
+\it \ignorespaces
+}
+
+\def\beginlemma{\par\medskip\noindent\refstepcounter{count}\hbox{\bf Lemma \arabic{chapter}.\arabic{section}.\arabic{count}.}
+\it \ignorespaces
+}
+
+
+\def\begindefinition{\par\medskip\noindent\refstepcounter{count}\hbox{\bf Definition \arabic{chapter}.\arabic{section}.\arabic{count}.}
+\ignorespaces
+}
+
+
+\def\beginexample{\par\medskip\noindent\refstepcounter{count}\hbox{\bf Example \arabic{chapter}.\arabic{section}.\arabic{count}.}
+\ignorespaces
+}
+
+\def\beginclaim{\par\medskip\noindent\refstepcounter{count}\hbox{\bf Claim \arabic{chapter}.\arabic{section}.\arabic{count}.}
+\ignorespaces
+}
+
+\def\beginremark{\par\medskip\noindent\refstepcounter{count}\hbox{\it Remark \arabic{chapter}.\arabic{section}.\arabic{count}.}
+\ignorespaces
+}
+
+\def\beginexercise{\par\medskip\noindent\refstepcounter{count}\hbox{\it Exercise \arabic{chapter}.\arabic{section}.\arabic{count}.}
+\ignorespaces
+}
+
+
+
+\newenvironment{theorem}[1][]
+{\begintheorem {\textnormal{#1}}}
+{\nosliceendenv}
+\numberwithin{count}{chapter}
+
+\newenvironment{proposition}[1][]
+{\beginproposition {\textnormal{#1}}}
+{\endenv}
+
+\newenvironment{corollary}[1][]
+{\begincorollary {\textnormal{#1}}}
+{\endenv}
+
+\newenvironment{lemma}[1][]
+{\beginlemma {\textnormal{#1}}}
+{\endenv}
+
+\newenvironment{definition}[1][]
+{\begindefinition {\textnormal{#1}}}
+{\endenv}
+
+\newenvironment{example}[1][]
+{\beginexample {\textnormal{#1}}}
+{\endenv}
+
+\newenvironment{claim}
+{\beginclaim}
+{\endenv}
+
+\newenvironment{remark}
+{\beginremark}
+{\endenv}
+
+\newenvironment{exercise}[1][]
+{\beginexercise {\textnormal{#1}}}
+{\endenv}
+
+
+%Custom Commands
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\op}[1]{\operatorname{#1}}
+\renewcommand{\S}{\mathcal{S}}
+\newcommand{\Cc}{\mathcal{C}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\vp}{\varphi}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\q}{\mathfrak{q}}
+\renewcommand{\a}{\mathfrak{a}}
+\renewcommand{\b}{\mathfrak{b}}
+\newcommand{\m}{\mathfrak{m}}
+\newcommand{\F}{\mathscr{F}}
+\newcommand{\G}{\Gamma}
+\renewcommand{\L}{\mathcal{L}}
+\newcommand{\Ll}{\mathcal{L}}
+\renewcommand{\H}{\mathbb{H}}
+\renewcommand{\O}{\mathcal{O}}
+\newcommand{\Oo}{\mathcal{O}}
+\newcommand{\I}{\mathscr{I}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\D}{\mathbf{D}}
+\newcommand{\K}{\mathbf{K}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathfrak{X}}
+\newcommand{\et}{\op{\acute{e}t}}
+
+\renewcommand{\Pr}{\op{Proj}}
+\newcommand{\Sp}{\op{Spec}}
+
+\newcommand{\tle}{\trianglelefteq}
+\newcommand{\tge}{\trianglerighteq}
