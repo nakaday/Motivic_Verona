@@ -1,0 +1,239 @@
+\documentclass[../MH_Total.tex]{subfiles}
+\begin{document}
+\section{Introduction}
+Abstract and motivic homotopy theory. You get a special gift if you're the first to ask a mathematical question, so ask questions!
+
+Totally agree with this email about the spirit of this course. Intervene, stop him, don't let him get carried away. Steer this course in any direction which suits you best. Not too determined about what has to happen in here. Quick or slower as you like.
+
+Most of today (all of today) will be the abstract homotopy theory part. That's maybe a bit dry if you have zero motivation, so that's what we'll start.
+
+\section{A Picture of Homotopy Theory}
+A hexagon which will haunt you for the second part of the course. 
+
+\emph{Notations}: 
+\begin{enumerate}
+	\item Top will denote the category of CW-complexes.
+	\item We have a pointed version $Top_*$ of pointed CW-complexes, which is the comma category $*/Top$. The objects  here are maps $* \to X$ and morphisms are triangles
+	\begin{center}
+		\begin{tikzcd}
+			& * \arrow[dl] \arrow[dr]\\
+			X \arrow[rr] & & Y
+		\end{tikzcd}
+	\end{center}
+	\item We'll let $I := [0,1] \subseteq \R$.
+\end{enumerate}
+
+The best kind of invariant are cohomology theories.
+\begin{definition}
+	A \emph{reduced cohomology theory} is a functor 
+	\[
+	E: {Top_*}^{op} \to \mathbf{Ab}^\Z
+	\]
+	(sequences of abelian groups), and we often write $X \mapsto E^*(X) = \bigoplus_{n \in \Z} E^n(X)$ such that
+
+	\begin{enumerate}
+		\item (\emph{Homotopy Invariance}) $X \times I \xrightarrow{\op{pr}} X$ induces $E^*(X) \xrightarrow{\sim} E^*(X \times I)$
+		\item (\emph{Suspension Axiom}) We have an isomorphism natural in $X$ $E^n(X) \cong E^{n+1}(\Sigma X)$. This makes sense: the nth group is made out of the $n$-cells, n-dimensional spheres, and if you shift up by a suspension you get $n+1$-spheres.
+
+		\begin{remark}
+			The \emph{suspension} is defined as follows: if $X \ni p$ is a pointed space, 
+			\[
+			\Sigma X := X \times [0,1]/(X \times \{0\} \cup X \times \{1\} \times \{p\} \times [0,1]).
+			\]
+		\end{remark}
+
+		\item (\emph{Wedge Axiom}) 
+
+		\begin{remark}
+			The wedge is defined as follows: If $X_i \ni p_i$ are pointed topological spaces, $i \in J$, then
+			\[
+			\bigvee_{i \in J}X_i := \prod X_i/(p_i \sim p_j \,|\, i,j \in J)
+			\]
+			This is the coproduct in the category of pointed spaces.
+		\end{remark}
+
+		The wedge axiom says that this coproduct should turn into a product. This one is induced by canonical maps:
+		\[
+		E^*(\bigvee_{i \in J} X_i )\cong \prod_{i \in J} E^*(X_i)
+		\]
+
+		\item A `good enough' inclusion $A \hookrightarrow X \to X/A$ should induce an exact sequence
+		\[
+		E^*(X/A) \to E^*(X) \to E^*(A).
+		\]
+	\end{enumerate}
+\end{definition}
+
+We don't include the cup product because there are cohomology theories without a ring structure. But it's a meaningful structure you can put on it. 
+
+\begin{definition}
+	A cohomology theory is a functor of the form $Top \to Top_* \xrightarrow{E} \mathbf{Ab}^\Z$ where $E$ is a reduced cohomology theory (the functor $Top \to Top_*$ given by $X \mapsto X \sqcup \{*\}$). 
+\end{definition}
+
+\begin{example}
+	\begin{enumerate}
+		\item Singular cohomology $H_{sing}$;
+		\item $KU$, $KO$ complex/real topological $K$-theory (which measures vector bundles)
+		\item $MU$ complex cobordism.
+	\end{enumerate}
+\end{example}
+
+Such cohomology theories factorize through a bunch of functors and categories along the way. We'll follow this way a bit.
+
+The axioms tell us that singular cohomology factorizes as follows: the first axiom tells us that cohomology factors through localization. 
+
+It's a pointed category: there's an object which points to everything universally, namely the zero abelian group. Because it goes into a pointed category, cohomology must go through that too, so it factors through $\mathbf{Spaces}_*$. 
+
+Shifting (suspension) on the category of abelian sequences is an invertible endofunctor. It will factor through this spectra category because $\Sigma$ is sent to an invertible endofunctor. 
+
+Axiom 3 tells us that $E^*$ satisfies some properties which are satisfied by representable functors. Brown representability theory tells us that this is sort of enough. Namely, 3 and 4 tell us that cohomology theories are representable in the category of spectra.
+
+Multiplication in our cohomology theory is often represented by multiplication on spectra. Some spectra have a monoidal structure, namely smash product $\wedge$. So we have $H\Z \wedge H\Z \to H\Z$ on the Eilenberg-MacLane spectrum, which gives cup product.
+
+We can form, say, the category $H\Z$-Mod of modules: $H\Z \wedge M \to M$ where $M$ is another spectra, with what you'd expect from a module.
+
+Motivic homotopy theory mimics this picture here. We want to do the same for schemes. So we put algebraic varieties/schemes in the upper corner, because we want consider cohomology theories on algebraic varieties.
+
+\section{Localization of Categories}
+Let's get more detailed... and more boring.
+
+\begin{definition}
+	A \emph{relative category} is a pair $(\Cc, W$ where $\Cc$ is a category and $W \subseteq \op{Mor}\Cc$. We want to understand the morphism in $W$ are equivalences.
+\end{definition}
+	\begin{example}
+		\begin{enumerate}
+			\item $\Cc = Top$, $W =$ homotopy equivalences (recall that $Top$ consists of CW-complexes.)
+
+			\item $\Cc = \{\text{All topological spaces}\} = \mathbb{T}op$, $W =$ homotopy equivalences. 
+			\item $\Cc = \mathbb{T}op$, $W =$ weak equivalences $ = \{X \xrightarrow{f} Y \,|\, \pi_n(f) \text{ iso }\forall n \in \N_0\}$. Recall that
+			\[
+			\pi_n(X) := [S^n,X]
+			\]
+			(homotopy classes of base-point preserving continuous maps from the $n$-sphere to $X$. We've implicitly chosen a base-point.)
+
+			A homotopy is a deformation of a map $f: X \to Y$ to another $g: X \to Y$. From another perspective, if $x \in X$, then there is a path between $f(x)$ and $g(x)$. Modding out $\mathbb{T}op(S^n,X)$ by homotopy equivalence, you get $[S^n,X]$. 
+
+			By definition $\pi_n(X)$ is corepresentable, and it turns out it's group-valued, but whatever it's functor. It measures $n$-dimensional holes, what kinds of holes are there and how many.
+
+			\item $\Cc = \mathbb{T}op$, $W = \{X \xrightarrow{f} Y \,|\, H_n(f) \text{ iso }\forall n \in \N_0\}$. 
+
+			(3) and (4) are of the form $\C \xrightarrow{F} \mathcal{D}$, $W := F^{-1}(\op{Iso}(\mathcal{D})$.
+
+			\item $R$ a ring, then $\C = \op{Ch}_R$ = chain complexes of $R$-mod, and $W = $ quasi-isomorphisms (morphisms inducing isos on all $H_n$).
+
+			\item $\Cc$ any category, $W = \op{Mor}\Cc$ (when we localize, it will be the groupoidification of $\Cc$). 
+
+			\item $\Cc = \mathbf{Cat}$, $W = $ category equivalences. 
+
+			\item $\Cc = \mathbf{Rings}$, $W = \{R \to S \,|\, - \otimes_R S \text{ induces equiv.} \op{Mor}(R) \to \op{Mor}(S)\}$ (induces an equivalence of module categories). Faithfully flat means this functor is fully faithful. 
+		\end{enumerate}
+	\end{example}
+
+\begin{definition}
+	A (/the) \emph{localization} of the relative category $(\Cc,W)$ (or the localization of $\Cc$ w.r.t. $W$) is a functor
+	\[
+	L: \Cc \to \Cc[W^{-1}]
+	\]
+	such that
+	\begin{enumerate}
+		\item $L(W) \subseteq \op{Iso}(\Cc[W^{-1}])$
+		\item It should be initial, the most economical way of doing this. Formally, for any $F: \Cc \to \mathcal{D}$ such that $F(W) \subseteq \op{Iso}(\mathcal{D})$ there should exist up to natural isomorphism
+		\begin{center}
+			\begin{tikzcd}
+				\Cc \arrow[r,"L"] \arrow[dr,"F"] & \Cc[W^{-1}] \arrow[d,dotted,"\exists! \text{ up to na. iso}"]\\
+				& \mathcal{D}. 
+			\end{tikzcd}
+		\end{center}
+	\end{enumerate}
+	A \emph{strict} localization is the same without the natural isos in $(b)$. It's an ``evil'' notion, in the sense that it's not invariant under equivalence of categories.
+\end{definition}
+
+	\begin{exercise}
+	Any category $\widetilde{\mathcal{C}[W^{-1}]}$ equivalent to a strict localization will be a localization but not in general strict (\emph{Hint}: consider $\C = (a \to b$. Not much to localize. Can find a strict localization, and can find equivalent categories to this strict localization which are not strict.)
+	\end{exercise}
+
+\begin{remark}
+	$\Cc \xrightarrow{L} \Cc[W^{-1}]$ is a strict localization iff the following is a pushout 
+	\begin{center}
+		\begin{tikzcd}
+			\prod_W (* \to *) \arrow[r] \arrow[d,hook] & \Cc \arrow[d,"L"]\\
+			\prod_W (* \xrightarrow{\sim} *) \arrow[r] & \Cc[W^{-1}].
+		\end{tikzcd}
+	\end{center}
+	See video for explanation. 
+\end{remark}
+
+\subsection{Construction}
+$\op{Ob}(\Cc[W^{-1}]) = \op{Ob}\Cc$. 
+
+$\Cc[W^{-1}](A,B) := \{A \xleftarrow{\sim} X_1 \to X_2 \xleftarrow{\sim} X_3 \to \dots X_k \xleftarrow{\sim} B\}/\sim$ where the backwards arrows are only from $W$. We call this a zig-zag.
+
+The $\sim$ should be the equivalence relation generated by the following relations:
+\begin{enumerate}
+	\item We want to see the backwards morphisms as the inverses of the corresponding morphisms:
+	\begin{align*}
+		\cdots \rightleftarrows X_i \xleftarrow{f} &X_{i+1} \xrightarrow{f} X_i \rightleftarrows \cdots\\
+		&\wr\\
+		\cdots \rightleftarrows X_i &= X_i \rightleftarrows \cdots
+	\end{align*}
+	% \[
+	% \rightleftarrows X_i \xleftarrow{f} X_{i+1} \xrightarrow{f} X_i \rightleftarrows \dots \sim \rightleftarrows X_i = X_i \rightleftarrows \dots
+	% \]
+
+	\item The same for arrows going into $X_{i+1}$.
+
+	\item We should be able to compose:
+	\begin{align*}
+	\cdots \rightleftarrows X_i \xrightarrow{h} &X_{i+1} \xrightarrow{k} X_{i+2} \rightleftarrows \cdots\\
+	&\wr\\
+	\cdots \rightleftarrows X_i &\xrightarrow{k \circ h} X_{i+2} \rightleftarrows \cdots	
+	\end{align*}
+
+	and same for arrows going backwards - for this we demand that $W$ is closed under composition.
+\end{enumerate}
+
+Composition is concatenation of zig-zags.
+
+\begin{exercise}
+	This defines a category (possibly with $\Cc[W^{-1}](A,B)$ a class, not a set). We have a set-theoretic problem here. We usually demand a class of objects and a set of morphisms. Certainly before dividing by equivalence the collection of zig-zags is a proper class in general. Sometimes when you mod out by the equivalence relation you identify enough to get a set. 
+\end{exercise}
+
+\begin{proposition}
+	It is a strict localization.
+\end{proposition}
+
+\begin{proof}
+	Define the morphism $\Cc \to \Cc[W^{-1}]$ by
+	\[
+	X \xrightarrow{f} Y \mapsto \{X \xrightarrow{f} Y\}
+	\]
+	where the latter is the zig-zag of length 1. It's pretty easy to show that it's universal (see the video). 
+\end{proof}
+
+It's an unwieldly and strange category we've constructed, a priori at least. The outcome of the construction is hard to control, in a way we'll make more precise. For example, this functor $L$ needn't be full or faithful:
+
+Say $\Cc = (\N,+)$, i.e. $\op{Ob}\Cc = \{*\}$ and $(\Cc(*,*) = \N)$. Composition is addition, and zero will be the identity. Let $W = \N$ (or equivalently $W = \{1\}$, since everything else is composition of that.) Then $\Cc[W^{-1}] = \Z$, so the morphism is not full.
+
+Let $\Cc$ be the monoid $\{1,e\}$ with $e^2 = e$ and $W = \{e\}$. Then in $\Cc[W^{-1}]$ we have an inverse to $e$ call it $[e^{-1}]$. Then $\op{id} = [e] \circ [e^{-1}] = [e] \circ [e] \circ [e^{-1}] = [e]$, so the morphism is not faithful.
+
+Other counterexample to faithfulness: If in $\Cc$ we have $s: b \to a$ and $f,g: a \to b$ such that $f \circ s= g \circ s$, then if $s \in W$ we have in $\Cc[W^{-1}]$:
+\[
+[f] = [f] \circ [s] \circ [s]^{-1} = [g] \circ [s] \circ [s]^{-1} = [g]
+\]
+So we can start forcing relations we didn't expect before.
+
+\begin{exercise}
+	Let $\op{Ho}Top$ denote the category with objects topological spaces and $\op{Ho}Top(A,B) = \op{Top}(A,B)/\text{homotopy}$. Show that $\op{Ho}(Top) \cong \op{Top}[(X \times I \xrightarrow{\op{pr}} X)^{-1}]$. Use the counterexample above.
+
+	This category has a universal property: there's a functor $\op{Top} \to \op{Ho}Top$, and it's an intial functor among all functors which identify homotopical maps. Then you have to use the universal property to get maps both ways, and show that they compose to the identity.
+\end{exercise}
+
+\begin{exercise}
+	Let $\Cc$ be a reflective subcategory of $\mathcal{D}$, i.e., a subcategory for which the inclusion $i: \Cc \to \mathcal{D}$ has a left-adjoint $r$.
+
+	Show that 
+	\[
+	\Cc \cong \mathcal{D}[r^{-1}(\op{Iso}(\Cc)^{-1}] \cong \mathcal{D}[(\text{units }d \to ir(d))^{-1}]. 
+	\]
+\end{exercise}
+\end{document}

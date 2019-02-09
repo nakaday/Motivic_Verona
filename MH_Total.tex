@@ -1,0 +1,42 @@
+\documentclass[twoside, a4paper]{report}
+\usepackage{subfiles}
+\usepackage{hyperref}
+\usepackage{basic_report}
+\usepackage{bbm}
+\usepackage{bm}
+
+%Symbols
+\usepackage{dictsym}
+
+\usepackage{fancyhdr}
+%\renewcommand{\chaptername}{}
+\pagestyle{fancy}
+
+\usepackage{titlesec}
+\fancyhead{}
+\fancyhead[RO,LE]{\rightmark}
+
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries}{}{0pt}{\Large}
+
+%\usepackage{unnumberedtotoc}
+\usepackage{stmaryrd}
+\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}
+%\usepackage{compstyle}
+%\usetikzlibrary{cd}
+
+\title{Introduction to Abstract and Motivic Homotopy Theory}
+\author{Dr.\,Peter Arndt}
+\date{Summer 2019}
+\begin{document}
+\maketitle
+
+\tableofcontents
+\newpage
+
+\chapter{Lecture 1}
+\subfile{tex/20190207_MH_1}
+
+\chapter{Lecture 2}
+\subfile{tex/20190207_MH_2}
+\end{document}
