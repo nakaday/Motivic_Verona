@@ -1,0 +1,57 @@
+%-------------------------------------------------
+% Remark 1.3.5
+%
+%-------------------------------------------------
+
+\documentclass[preview]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{cd}
+\usetikzlibrary{arrows}
+\usepackage{amsfonts,amssymb}
+\usepackage{mathtools}
+\usepackage{adjustbox}
+
+
+
+\def\arrowcat{
+	\adjustbox{scale=0.5}{%
+		\tikz[baseline=.1ex]{
+			\node (A) at (0, 0) {$\bullet$};
+			\node (B) at (1, 0) {$\bullet$};
+			% arrows
+			\draw[-stealth]   (A) edge (B) ;
+		}
+	}
+}
+\def\isoarrowcat{
+	\adjustbox{scale=0.5}{%
+		\tikz[baseline=.1ex]{
+			\node (A) at (0, 0) {$\bullet$};
+			\node (B) at (1, 0) {$\bullet$};
+			% arrows
+			\draw[stealth-stealth]   (A) to node[above]{$\sim$} (B) ;
+		}
+	}
+}
+
+\begin{document}
+	\begin{center}
+		\begin{tikzcd}
+			\displaystyle \amalg_W(\arrowcat) \ar[d,hookrightarrow] \ar[r] & \mathcal{C} \ar[d,"L"]
+			\\
+			\displaystyle \amalg_W(\isoarrowcat) \ar[r] & \mathcal{C}[W^{-1}] \arrow[ul, phantom, "\ulcorner", very near start]
+		\end{tikzcd}	
+	\end{center}
+
+	It is strict because:
+	\begin{center}
+		\begin{tikzcd}
+			& \mathcal{C} \ar[d,"L"] \ar[ddr,bend left,"F"]& &
+			\\
+			\amalg_W(\isoarrowcat) \ar[r] \ar[rrd,bend right] & \mathcal{C}[W^{-1}] \ar[rd,dashed,"\exists !"] & & F(W)\subseteq \text{Iso}(\mathcal{D})
+			\\
+			& & \mathcal{D}
+		\end{tikzcd}	
+	\end{center}
+
+\end{document}

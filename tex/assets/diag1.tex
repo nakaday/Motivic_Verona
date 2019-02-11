@@ -1,0 +1,34 @@
+%-------------------------------------------------
+% Hex diagram in example 1.2.5
+%
+%-------------------------------------------------
+
+\documentclass[tikz]{standalone}
+
+\usetikzlibrary{cd}
+\usepackage{amsfonts,amssymb}
+\usepackage{mathtools}
+
+\newcommand{\Top}{\mathbf{Top}}
+\newcommand{\Spaces}{Spaces}
+\newcommand{\Ab}{\mathbf{Ab}}
+\newcommand{\op}{{op}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\begin{document}
+	\begin{tikzcd}
+	& \Top \ar[r,"H_{\text{sing}}"]	\ar[dl,anchor=center,rotate=-90,yshift=1ex,"\text{localization}"']& (\Ab^\Z)^\op = 	\frac{\{0\}^\Z}{\Ab^\Z} &
+	\\
+	\Top[(X\times I \rightarrow X)^{-1}]=\colon \Spaces \ar[dr] & & & H \textrm{$\Z$-Mod}\ar[ul,anchor=center,rotate=-90,yshift=1ex,"\text{cohomology of complexes}"']
+	%\cong \text{Derived Cat of Ab groups}
+	\\
+	& \frac{\{\ast\}}{\Spaces} =\colon \Spaces_\ast \ar[r,"\Sigma^\infty"] & \Spaces_{\ast}\langle \Sigma^{-1} \rangle =\colon \textrm{Spectra} \ar[ur,"H \Z \text{-} \underline{\;\;}"] &
+	\end{tikzcd}
+%
+	\begin{tikzcd}
+	\frac{\{\ast\}}{\Spaces} \ar[loop below,"\Sigma"]  \ar[r,"\Sigma^\infty"]  \ar[dr,"\forall G"]
+	& \Spaces_{\ast}\langle \Sigma^{-1} \rangle =\colon \textrm{Spectra} \ar[d,dashed,"\exists !"] 
+	\\
+	& \mathcal{D}
+	\end{tikzcd}
+\end{document}

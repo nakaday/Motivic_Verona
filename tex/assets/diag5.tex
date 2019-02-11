@@ -1,0 +1,64 @@
+%-------------------------------------------------
+% Example 
+%
+%-------------------------------------------------
+
+\documentclass[tikz]{standalone}
+
+\usetikzlibrary{cd}
+\usetikzlibrary{arrows}
+\usepackage{amsfonts,amssymb}
+\usepackage{mathtools}
+\usepackage{adjustbox}
+
+\def\shape{
+	\adjustbox{scale=0.25}{%
+		\tikz[baseline=.1ex]{
+			\node (A) at (0, 0.5) {$\bullet$};
+			\node (B) at (1, 0.5) {$\bullet$};
+			\node (C) at (0, -0.5) {$\bullet$};
+			% arrows
+			\draw[-stealth]   (A) edge (B) ;
+			\draw[-stealth]   (A) edge (C) ;
+		}
+	}
+}
+
+\def\diagram{
+	\adjustbox{scale=0.45}{%
+		\tikz[baseline=.1ex]{
+			\node (A) at (0, 0.5) {$A$};
+			\node (B) at (1, 0.5) {$B$};
+			\node (C) at (0, -0.5) {$C$};
+			% arrows
+			\draw[-stealth]   (A) edge (B) ;
+			\draw[-stealth]   (A) edge (C) ;
+		}
+	}
+}
+
+\def\imagediagram{
+	\adjustbox{scale=0.45}{%
+		\tikz[baseline=.1ex]{
+			\node (A) at (0, 0.5) {\color{gray}$A$};
+			\node (B) at (1, 0.5) {\color{gray}$B$};
+			\node (C) at (0, -0.5) {\color{gray}$C$};
+			\node (D) at (1, -0.5) {$D$};
+			\node (po) at (0.7,-0.3){\color{gray}$\ulcorner$};
+			% arrows
+			\draw[-stealth,gray]   (A) edge (B) ;
+			\draw[-stealth,gray]   (A) edge (C) ;
+			\draw[-stealth,gray]   (B) edge (D) ;
+			\draw[-stealth,gray]   (C) edge (D) ;
+		}
+	}
+}
+
+\newcommand{\Top}{\mathbf{Top}}
+
+\begin{document}
+	\begin{tikzcd}[column sep=6em, row sep=0em]
+		\Top^{(\shape)} \ar[r,"\text{colim}"] & \Top \\
+		\diagram \ar[r,mapsto] & \imagediagram
+	\end{tikzcd}
+\end{document}

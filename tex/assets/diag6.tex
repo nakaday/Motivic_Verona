@@ -1,0 +1,130 @@
+%-------------------------------------------------
+% Example 2.2.3
+%
+%-------------------------------------------------
+
+
+\documentclass[preview]{standalone}
+
+\usepackage{tikz}
+\usetikzlibrary{cd}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.pathmorphing}
+\usepackage{amsfonts,amssymb}
+\usepackage{mathtools}
+\usepackage{adjustbox}
+
+
+
+
+
+
+\def\smallcat{
+	\adjustbox{scale=0.75}{%
+		\tikz[baseline=.1ex]{
+			\node (A) at (0, 0.5) {Mor};
+			\node (B) at (0, -0.5) {Ob};
+			% arrows
+			\draw[-stealth,transform canvas={xshift=0.5em}]   (A) -- node[right]{$t$} (B) ;
+			\draw[-stealth,transform canvas={xshift=-0.5em}]   (A) -- node[left]{$s$}  (B) ;
+		}
+	}
+}
+
+\def\groupcatA{
+	\adjustbox{scale=0.75}{%
+		\tikz[baseline=.1ex]{
+			\node (A) at (0, 0.5) {$G \times G$};
+			\node (B) at (0, -0.5) {$G$};
+			% arrows
+			\draw[-stealth,transform canvas={xshift=0.5em}]   (A) -- node[right]{$t=\text{left mul}$} (B) ;
+			\draw[-stealth,transform canvas={xshift=-0.5em}]   (A) -- node[left]{$s=\text{pr}$}  (B) ;
+		}
+	}
+}
+
+\def\groupcatB{
+	\adjustbox{scale=0.75}{%
+		\tikz[baseline=.1ex]{
+			\node (A) at (0, 0.5) {$G $};
+			\node (B) at (0, -0.5) {$\{\ast\}$};
+			% arrows
+			\draw[-stealth]   (A) -- (B) ;
+		}
+	}
+}
+
+\def\dummyG{
+	\adjustbox{scale=0.45}{%
+		\tikz[baseline=.1ex]{
+			\node (A) at (0, 0.5) {$G$};
+			\node (B) at (0, -0.5) {$G$};
+			% arrows
+			\draw[double,transform canvas={xshift=0.5em}]   (A) -- (B) ;
+			\draw[double,transform canvas={xshift=-0.5em}]   (A) -- (B) ;
+		}
+	}
+}
+
+\def\dummyast{
+	\adjustbox{scale=0.45}{%
+		\tikz[baseline=.1ex]{
+			\node (A) at (0, 0.5) {$\{\ast\}$};
+			\node (B) at (0, -0.5) {$\{\ast\}$};
+			% arrows
+			\draw[-stealth]   (A) -- (B) ;
+		}
+	}
+}
+
+
+\begin{document}
+Let us look at a small category as
+$$ \smallcat $$
+
+Consider a group $G$, there are two canonically associated categories.
+The first is
+\begin{center}
+	\begin{tikzcd}
+		 G \ar[r,rightsquigarrow] & \biggr( \groupcatA \biggr) \coloneqq EG
+	\end{tikzcd}
+\end{center}
+Such that for each pair of objects $g, g' \in G$
+\begin{center}
+	\adjustbox{scale=0.75}{%
+		\tikz[baseline=.1ex]{
+			\node [circle,fill,inner sep=1pt, label={\small $g$}] (g) at (0, 0) {};
+			\node [circle,fill,inner sep=1pt, label={\small $g'$}] (g') at (2, 0) {};
+    			\draw [->] (g.south)arc(-160:160:-0.25) node[midway,left]{\small$(g,e)$};
+     		\draw [->] (g'.south)arc(-160:160:0.25) node[midway,right]{\small$(g',e)$};
+    			\draw[->] (g) to [out=60,in=140] node[midway,above]{\small$(g,g'g^{-1} )$} (g');
+    			\draw[->] (g') to [out=240,in=-60] node[midway,below]{\small$(g',g g'^{-1})$} (g);
+		}
+	}
+\end{center}
+we have $\text{Hom}_{EG}(g,g') \cong \{\ast\}$
+
+The second is the usual category with only one object
+\begin{displaymath}
+	BG \coloneqq \left(\groupcatB\right)
+\end{displaymath}
+We have at the same time two pullbacks
+\begin{center}
+	\begin{tikzcd}
+		\left(\dummyG\right) \ar[r] \ar[d]& EG \ar[d]
+		\\
+		\left(\dummyast\right) \ar[r] & BG
+	\end{tikzcd}
+\end{center}
+\begin{center}
+	\begin{tikzcd}
+		\left(\dummyast\right) \ar[r] \ar[d]& \left(\dummyast\right) \ar[d]
+		\\
+		\left(\dummyast\right) \ar[r] & BG
+	\end{tikzcd}
+\end{center}
+
+Remedy: Derived Functors
+\end{document}
+
+

@@ -2,20 +2,49 @@
 \begin{document}
 \section{Interlude: Simplicial Sets}
 \begin{definition}
-	$\Delta$ is the category of (nonempty) finite linearly ordered sets with order-preserving morphisms. So $[n] = \{1 < 2 < \dots < n\}$. 
+	$\Delta$ is the category of (nonempty) finite linearly ordered sets with order-preserving morphisms. So its objects consist of the ordered set $[n] = \{1 < 2 < \dots < n\}$ for each $n \in \Z^{\ge 0}$.
 \end{definition}
 
 \begin{example}
-	Some particular morphisms: $\delta_i: [n] \to [n+1]$ which omits $i$. The other way around, $\sigma_i: [n+1] \to [n]$, $\sigma_i(i) = \sigma_i(i+1)$ and $\sigma_i(j) = j$ otherwise. So you merge two of them and leave everything else the same.
+	Some particular morphisms:
+	\begin{align*}
+		\delta_i: [n] &\to [n+1]\\
+		j &\mapsto
+		\begin{cases}
+			j & \text{ if } j < i\\
+			j+1 & \text{ if } j \ge i
+		\end{cases}
+	\end{align*}
+	That is, $\delta_i$ omits $i$.
+
+	We have map going the other way around:
+	\begin{align*}
+		\sigma_i: [n+1] &\to [n]\\
+		j &\mapsto
+		\begin{cases}
+			j &\text{ if } j \le i\\
+			j-1 &\text{ if } j > i
+		\end{cases}
+	\end{align*}
+	So you merge $i$ into $i+1$ and leave everything else the same. [This isn't quite right - you pull back everything starting from $i+1$, hitting $i$ twice.]
+	% $\sigma_i: [n+1] \to [n]$, $\sigma_i(i) = \sigma_i(i+1)$ and $\sigma_i(j) = j$ otherwise. So you merge two of them and leave everything else the same.
 \end{example}
 
-Every morphism in $\Delta$ is the composition of such morphisms. 
+\begin{remark}\label{simplicial_composition}
+Every morphism in $\Delta$ is the composition of such morphisms.
+There are relations between these morphisms, but we won't mention them here. 
+\end{remark}
 
 \begin{definition}
-	A \emph{simplicial set} is a functor $X: \Delta^{op} \to \mathbf{Set}$, say $[n] \mapsto X_n$. s
+	A \emph{simplicial set} is a functor $X: \Delta^{op} \to \mathbf{Set}$, say $[n] \mapsto X_n$. 
 \end{definition}
 
-We can specify such a functor by the images of its objects and the $\delta_i$ and $\sigma_i$. This can be drawn as a diagram $X_0, X_1,X_2,X_3,\dots...$ with the morphisms between them. The usual picture (see video). 
+We can specify such a functor by the images of its objects and the $\delta_i$ and $\sigma_i$, since by Remark \ref{simplicial_composition} these two classes of maps generate all of the morphisms. This can be drawn as a diagram $X_0, X_1,X_2,X_3,\dots...$ with the morphisms between them:
+\begin{center}
+	\begin{tikzcd}
+		X_0 \arrow[from=r, shift right = 5,swap,"X(\delta_0)"] \arrow[r,"X(\sigma_0)"] \arrow[from=r, shift left = 5,swap,"X(\delta_1)"] & X_1  \arrow[from=r,shift right = 4] \arrow[from=r,shift right = 0] \arrow[from=r,shift left = 4] \arrow[r, shift right = 2] \arrow[r, shift left = 2]& X_2 \cdots
+	\end{tikzcd}
+\end{center}
 
 [The category $\Delta$ has some relations between the face and boundary maps. Any collection of sets together with appropriate arrows between them which satisfy (the opposite of) these relations is a simplicial set.]
 
@@ -24,7 +53,7 @@ We can specify such a functor by the images of its objects and the $\delta_i$ an
 	\[
 	\Delta^n := \{(x_0,\dots,x_n) \in \R^{n+1}\,|\, 0 \le x_i \le 1, \sum x_i = 1\}.
 	\]
-	[The equation defines a place, and the inequalities bound the plane.]
+	[The equation defines a plane, and the inequalities bound the plane.]
 \end{definition}
 
 We think of the maps in the simplicial set as gluing data. It's a blueprint for gluing a space.
@@ -35,34 +64,46 @@ More formally:
 	\[
 	|X_\bullet| := \left(\prod_{n \in \N_0} X_n \times \Delta^n\right)/\sim = \int^n X_n \times \Delta^n.
 	\]
-	where $\sim$ identifies simplicies as prescribed by the ``face maps''. (It's a special kind of colimit.)
+	where $\sim$ identifies simplicies as prescribed by the ``face maps''. (It's a special kind of colimit.) We can define the geometric realization of a morphism between simplicial sets and so we get a functor $|-|: \mathbf{SimpSet} \to \mathbf{Top}$. 
 \end{definition}
 
 It's a combinatorial blueprint for making topological spaces. It's okay not to think of the degeneracy maps if you're imagining it as a way of constructing topological spaces.
+
+There's also a natural functor going the other way:
 
 \begin{definition}
 	Let $Y$ be a topological space. Then we get a simplicial set 
 	\[
 	\op{Sing}(Y)_n := \{\Delta^n \to Y \text{ continuous}\}
 	\]
-	where the face maps $\op{Sing}(Y)_n \to \op{Sing}(Y)_{n-1} = \{\Delta^{n-1} \to Y\}$ are given by the restriction map to faces.
+	where the face maps $\op{Sing}(Y)_n \to \op{Sing}(Y)_{n-1} = \{\Delta^{n-1} \to Y\}$ are given by the restriction map to faces. This defines a functor $\op{Sing}(-): \mathbf{Top} \to \mathbf{SimpSet}$. 
 
-	From this you construct a (co)complex 
-	\[
-	\op{Sing}(Y)_\bullet = \Z\op{Sing}_0(Y) \xleftarrow{d_0 - d_1} \Z\op{Sing}_1 \xleftarrow{d_0 - d_1 + d_2} \Z\op{Sing}_2(Y) \dots
-	\]
-	which level-wise is the free abelian group generated by $\op{Sing}(Y)_n$. Your differentials are the alternating sum of these degeneracy maps. Then singular homology is the homology of this complex.
-
-	To get cohomology, you apply the contravariant functor $\op{Hom}(-,\Z)$ to the complex $\op{Sing}(Y)_\bullet$ then take cohomology.
+	[More precisely, I think, $\op{Sing}(Y)$ is the composition
+	\begin{alignat*}{3}
+		\Delta &\mapsto \mathbf{Top} &&\mapsto \mathbf{Set}\\
+		n &\mapsto \Delta^n &&\mapsto \mathbf{Top}(\Delta^n,Y)
+	\end{alignat*}
+	We just needs to define the functor $n \mapsto \Delta^n$ on maps.]
 \end{definition}
 
-\emph{Fact}: The geometric realization functor $|-|$ is left-adjoint to $\op{Sing}(-)$. The counit $|\op{Sing}(Y)_\bullet| \to Y$ is a weak-equivalence, i.e., it induces an isomorphism on the higher homotopy groups. 
+\begin{remark}
+	From this you construct a (co)complex 
+	\[
+	\op{Sing}(Y)_\bullet = \left(\Z^{\op{Sing}_0(Y)} \xleftarrow{d_0 - d_1} \Z^{\op{Sing}_1(Y)} \xleftarrow{d_0 - d_1 + d_2} \Z^{\op{Sing}_2(Y)} \leftarrow \dots\right)
+	\]
+	whose components are the free abelian group generated by $\op{Sing}(Y)_n$. Your differentials are the alternating sum of the degeneracy maps. Singular homology is defined to be the homology of this (co)complex.
 
+	To get cohomology, you apply the contravariant functor $\op{Hom}(-,\Z)$ to $\op{Sing}(Y)_\bullet$ to obtain a complex then take cohomology.
+\end{remark}
+
+\emph{Fact}: The geometric realization functor $|-|$ is left-adjoint to $\op{Sing}(-)$. In addition the counit $|\op{Sing}(Y)_\bullet| \to Y$ is a weak-equivalence, i.e., it induces an isomorphism on the higher homotopy groups.
 Explicitly
 \[
 |\op{Sing}(Y)_\bullet| = \left(\bigsqcup_n \{\Delta^n \xrightarrow{f} Y\} \times \Delta^n\right)/\sim \to Y
 \]
-is given by $\overline{(f,x)} \mapsto f(x)$. So every topological space is weak-equivalent to a CW-complex. 
+is given by $\overline{(f,x)} \mapsto f(x)$.
+
+In particular, every topological space is weak-equivalent to a CW-complex since the geometric realization always outputs a CW-complex. 
 
 \emph{Fact}: If $X_\bullet \in \mathbf{Set}^{\Delta^{op}}$ is a simplicial set, then the unit $X_\bullet \to \op{Sing}(|X_\bullet|)$ is also a weak equivalence, if one defines a weak equivalence $X_\bullet \xrightarrow{f} X_\bullet'$ to be a weak equivalence $|X_\bullet| \xrightarrow{|f|} |X_\bullet'|$. 
 
@@ -73,9 +114,9 @@ This is an example of how different relative categories can give the same catego
 That's why we can always use simplicial sets of instead of topological spaces - when we're working with weak homotopy, at least, we can use either category. The category of simplicial sets is much nicer, and in the category of topological spaces you have to do more work.
 
 \section{Derived Functors}
-Previously we had the general situation of a relative category $(\Cc,W)$, and we now know how to associate it a localization $\Cc \xrightarrow{L} \Cc[W^{-1}]$. In this category the notion of equivalence became an isomorphism, in the best way possible.
+Previously we had the general situation of a relative category $(\Cc,W)$, and we now know how to associate to it a localization $\Cc \xrightarrow{L} \Cc[W^{-1}]$. In this category the notion of equivalence became an isomorphism, in the best way possible.
 
-How to work in $\Cc[W^{-1}]$? The disappointment is that you can't work in there alone. For example, limits and colimits don't really work here, and there's a result that if you can take limits and colimits you were in the situation where it was a reflexive subcategory.
+How do we work in $\Cc[W^{-1}]$? The disappointment is that you can't work in there alone. For example, limits and colimits don't really work here, and there's a result that if you can take limits and colimits you were in the `trivial' situation in which $\Cc$ is a reflexive subcategory.
 
 But usually we come from a category which is not so bad.
 
@@ -86,7 +127,7 @@ Given two localizations
 		\Cc[W^{-1}] \arrow[r,dotted] & \mathcal{D}[V^{-1}].
 	\end{tikzcd}
 \end{center}
-this dotted arrow exists if $L'(F(W)) \subseteq \op{Iso}\mathcal{D}(V')$. But these categories don't know anything about their isomorphisms, so we can't expect this to happen in general.
+this dotted arrow exists (by the universal property) if $L'(F(W)) \subseteq \op{Iso}\mathcal{D}[V^{-1}]$. But the functor $F$ doesn't know anything about $W$ and $V$ so we can't expect this to happen in general.
 
 \begin{example}[(Colimits)]
 	Let $\Cc = \op{Top}$. Pushout: glue along their boundary. We definitely want pushouts, gluing things along their boundaries, etc. Unfortunately the pushout functor does not respect equivalences - see video for a nice example.
@@ -100,7 +141,7 @@ this dotted arrow exists if $L'(F(W)) \subseteq \op{Iso}\mathcal{D}(V')$. But th
 	Let $\Cc = \mathbf{Cat}$. Consider a category as $s,t: \op{Mor} \to \op{Ob}$, which specifies the source and target of any morphism. It's cool but long.
 \end{example}
 
-Three examples of failure. What do we do about it? The remedy is derived functors.
+Three examples of failure. What do we do about it? The remedy is \emph{derived functors}. 
 
 Suppose we have a diagram
 \begin{center}
@@ -109,9 +150,9 @@ Suppose we have a diagram
 		\Cc[W^{-1}] & \mathcal{D}[V^{-1}].
 	\end{tikzcd}
 \end{center}
-There's no functor making this commute. The answer is a Kan extensions. Left/right Kan extension of $L' \circ F$ along $L$. It's not obvious they exist, and they won't in general. [\textbf{See video}]. 
+as above. The answer to our problem is the notion of a Kan extensions, more specifically the left/right Kan extension of $L' \circ F$ along $L$. It's not obvious they exist, and they won't in general. [\textbf{See video}]. 
 
-Suppose we have a full subcategory $\widetilde{\Cc}$ of $\Cc$ on which $F$ does preserve weak equivalences and such that $\widetilde{\Cc}[(W \cap \widetilde{\Cc})^{-1}] \cong \Cc[W^{-1}]$. So you add some isomorphisms and everything in $\Cc$ becomes isomorphic to one of these little objects. Then we can define
+Suppose we have a full subcategory $\widetilde{\Cc}$ of $\Cc$ on which $F$ \emph{does} preserve weak equivalences (that is, sends $V$ to $W$) and such that $\widetilde{\Cc}[(W \cap \widetilde{\Cc})^{-1}] \cong \Cc[W^{-1}]$. So you add some isomorphisms and everything in $\Cc$ becomes isomorphic to one of the objects in $\widetilde{\Cc}$. Then we can define
 \begin{center}
 	\begin{tikzcd}
 		\Cc \arrow[r,"F|_{\widetilde{\Cc}}"] \arrow[d,"L"] & \mathcal{D} \arrow[d,"L'"]\\
@@ -120,12 +161,12 @@ Suppose we have a full subcategory $\widetilde{\Cc}$ of $\Cc$ on which $F$ does 
 \end{center}
 and the arrow \emph{does} exist. 
 
-\begin{theorem}
+\begin{theorem}\label{Right_Kan_Extension}
 	Suppose we have $\Cc \xrightarrow{F} \mathcal{D}$ and $\widetilde{\Cc} \subseteq \Cc$ as above, a functor $Q: \Cc \to \widetilde{\Cc} \hookrightarrow \Cc$, and a natural transformation $\tau: Q \to \op{Id}_{\Cc}$ which consists objectwise of weak equivalences.
 	Also suppose $W$ satisfies the 2-of-3 condition, i.e., if in a diagram
 	\begin{center}
 		\begin{tikzcd}
-			A \arrow[r,"f"] \arrow[dr,"g \circ f"] & B \arrow[d,"g"]\\
+			A \arrow[r,"f"] \arrow[dr,swap,"g \circ f"] & B \arrow[d,"g"]\\
 			& C
 		\end{tikzcd}
 	\end{center}
@@ -142,25 +183,50 @@ and the arrow \emph{does} exist.
 \end{theorem}
 
 \begin{proof}
-	Exercise. Only do this if you're fond of abstract nonsense and categorical chasing.
+	Exercise. Only do this if you're fond of abstract nonsense.
 \end{proof}
 
 \begin{example}
-	Consider the colimit functor $\op{Top}^{diag} \xrightarrow{\op{colim}}\op{Top}$. Fact: ths preserves weak equivalences of diagram of the form
+	Consider the colimit functor $\mathbf{Top}^{diag} \xrightarrow{\op{colim}}\mathbf{Top}$. Fact: ths preserves weak equivalences of diagram of the form
 	\begin{center}
 		\begin{tikzcd}
 			A \arrow[r,"g"] \arrow[d,"f"] & B\\
 			C
 		\end{tikzcd}
 	\end{center}
-	where $A,B,C$ are CW-complexse and $f$ and $g$ are cofibrations, i.e., are inclusions of subspaces such that around the image there is a neighborhood which retracts onto it. (This is the ``good inclusion'' of the previous lecture.)
+	where $A,B,C$ are CW-complexes and $f$ and $g$ are cofibrations, i.e., are inclusions of subspaces such that around the image there is a neighborhood which retracts onto it. (This is the ``good inclusion'' of the previous lecture.)
 \end{example}
 
-\emph{Fact}: Every map in $\op{Top}$ factors as a cofibration followed by a weak equivalence. Namely, denote by $Mf$ the mapping cylinder $Mf := (X \times I \cup Y)/(x,0) \sim f(x)$. See paper.
+\emph{Fact}: Every map in $\mathbf{Top}$ factors as a cofibration followed by a weak equivalence. Namely, denote by $Mf$ the mapping cylinder $Mf := (X \times I \cup Y)/(x,0) \sim f(x)$, which we intuit as the following construction.
 
-Given this other fact, we have a recipe for the derived functor of pushout, called homotopy pushout. (***)
+\begin{figure}[h]
+\centering{
+\resizebox{75mm}{!}{\input{mapping_cylinder.pdf_tex}}
+\caption{Top view.}
+\label{fig:Mapping Cylinder}
+}
+\end{figure}
+The first morphism is the inclusion into the top of the cylinder, which is clearly a cofibration, and the second is the retraction of the cylinder to the base, which is a weak equivalence.
 
-Going back to the previous example (****)
+Given this other fact, we have a recipe for the derived functor of pushout, called homotopy pushout. Given a pushout diagram
+\begin{center}
+$D=$
+	\begin{tikzcd}
+		A \arrow[r] \arrow[d] & B\\
+		C
+	\end{tikzcd}
+\end{center}
+we factorize it using the above construction to get a diagram
+\begin{center}
+	\begin{tikzcd}
+		A \arrow[r, rightarrowtail] \arrow[d,rightarrowtail] & \widetilde{B} \arrow[r,"\sim"] \arrow[d] & B\\
+		\widetilde{C} \arrow[d,swap,"\sim"] \arrow[r] & P\\
+		C
+	\end{tikzcd}
+\end{center}
+and call $P$ the homotopy pushout of the diagram $D$. The smaller pushout diagram is the image $Q(D)$ of $D$ under the replacement functor in Theorem \ref{Right_Kan_Extension}. 
+
+Going back to the previous example of the failure of the pushout [\textbf{Take a photo of this picture?}]
 
 What we did here was a right Kan extension for homotopy, which is a bit surprising.
 
