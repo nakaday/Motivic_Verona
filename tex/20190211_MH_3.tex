@@ -1,4 +1,255 @@
 \documentclass[../MH_Total.tex]{subfiles}
+\newcommand{\Dd}{\mathcal{D}}
 \begin{document}
-$x^2$
+
+Let $\Dd$
+
+Let's get excited for day three of the lecture.
+
+The afternoon will consist only of one hour. IT's logic day! One lecture about reverse mathematics at 15:30. After that there's a lecture of Peter's. 
+
+In usual mathematics you use axioms you deduce theorems. In reverse mathematics you try to find the axioms which make a statement true.
+
+I didn't say much about homotopy limits, and somebody asked me right after the lecture, so let's do this first.
+
+\subsection{Homotopy Limits}
+Remember how we constructed the homotopy pushout: we had factorizations
+\begin{center}
+	\begin{tikzcd}
+		A \arrow[r] \arrow[d] & Mf \arrow[r,"\sim"] \arrow[rdd, bend left] \arrow[d] & B\\
+		Mg \arrow[d,"\sim"]  \arrow[drr, bend right] \arrow[r] & P \arrow[dr,dotted,"\exists!"]\\
+		C & & Z
+	\end{tikzcd}
+\end{center}
+and we call $P$ the homotopy pushout. It has the universal property that
+\begin{align*}
+\mathbf{Top}(P,Z) &= \{(r,s,h) \,|\, r: B \to Z, s: C \to Z, h: A \times I \to Z, h|_{A \times \{0\}} = r \circ f, h|_{A \times \{1\}} = s \circ f\}\\
+	k &\mapsto (k_C,k_B,k_{A \times I})
+\end{align*}
+
+So not coincidence but homotopy between the two things. 
+
+Homotopy \emph{limits}: we can factorize any map by a weak equivalence followed by a fibration. 
+
+\begin{center}
+	\begin{tikzcd}
+		Y^I  = \{f: I \to Y \,|\, f(0) = p\} \cong * \arrow[d]\\
+		Y \ni p
+	\end{tikzcd}
+\end{center}
+mapping $f$ to $f(1)$. Homotopic to a point. This right here is a fibration. If we have a homotopy downstairs, you can use this interval space here to lift it up somehow.
+
+The recipe for homotopy limit is then:
+
+special case:
+\begin{center}
+	\begin{tikzcd}
+		\{f: I \to Y \,|\, f(1) = f(0) = p\} = \Omega Y \arrow[d] & * \sim Y^I\arrow[d,"p"]\\
+		* \arrow[r,"p"] & Y
+	\end{tikzcd}
+\end{center}
+One can show that pullbacks of fibrations are fibrations again - the lifting will exist by the universal property of the pullback. 
+
+We can write a section $X \to X \times Y^I, x \mapsto x,C_{f(x)}$. $Y^I$ is contractible, so you can imagine that $X \to X \times Y^I$ is a homotopy. So you factor $f: X \to Y$ as
+\begin{center}
+\begin{tikzcd}	
+	X \times Y^I \arrow[r,"\op{pr}"] \arrow[d] & Y^I \arrow[d,two heads]\\
+	X \arrow[r,"f"] \arrow[r,bend left,"\sim"] & Y
+\end{tikzcd}
+\end{center}
+Also leads us to a point of view on this phenomenon.
+
+\section{$(\infty, 1)$-categories}
+Given a relative category $(\Cc,W)$ the first thing we did was to localize to obtain $\Cc \xrightarrow{L} \Cc[W^{-1}]$. Then we had to take some right Kan extension, etc. It's not intrinsic somehow, you have to remember the functor $L$ and so the particular presentation $\Cc$. There can be several such pairs of categories and $W$'s which give you the same thing, as we saw last week. 
+
+We're going to do this in a more refined way now. We'd like to give another universal property of this homotopy pushout: we just said that 
+\begin{align*}
+\mathbf{Top}(P,Z) &= \{(r,s,h)\,|\,\dots\}\\
+&\cong \mathbf{Top}(B,Z) \times^h_{\op{Top}(A,Z)} \mathbf{Top}(C,Z)
+\end{align*}
+(Homotopy fiber product) We can give a topology on this space here of maps $P \to Z$, and we can make this into an equivalence of topological spaces.
+
+\begin{exercise}
+ 	Check this. You need to know there is a space such that $\mathbf{Top}(A \times B,C) \cong \mathbf{Top}(A,C^B)$. You should just use that there are such exponential objects in these spaces.
+ \end{exercise} 
+Somehow this universal property is determined by $A,B,C$ by equivalence, and you can phrase it in this way through an equivalence to another space. 
+
+So: the universal property of this homotopy pushout can be phrased as a sort of pullback. That is, the universal property of the pushout is that mapping out of it turns it into a homotopy pullback.
+
+Compare this to Set-based Category theory. In category theory, you define limits and colimits by mapping properties. You can rephrase the usual pushout of $A \to B,C$ as
+\[
+\Cc(P,Z) \cong \Cc(B,Z) \times_{\Cc(A,Z)} \Cc(C,Z). 
+\]
+So to define a pushout in $\mathbf{Set}$ it's enough to define pushouts in any category $\Cc$ (this is a pushout in sets). 
+
+We know what homotopy limits in topological spaces are. Now we can say in these terms what it is in any relative category, in any such localization $\Cc \to \Cc[W^{-1}]$. 
+
+\begin{definition}[(Hammock Localization)]
+	Another way of inverting arrows. Except you don't end up in just another category but in acategory enriched in simplicial sets.
+
+	To a relative category $(\Cc,W)$ with $(\op{id} \subseteq W$, closed under composition) you attach the category enriched in simplicial sets $L^H_W(\Cc)$ given by
+	\begin{align*}
+		\op{Ob}(L^H_W(\Cc)) &:= \op{Ob}(\Cc)\\
+		L_H^W(\Cc)(A,B) &:= \text{simplicial set with}
+	\end{align*}
+	\[
+	L_W^H(\Cc)(A,B)_n = (*)
+	\]
+	for $k \in \N$. This diagram should be commutative, the vertical arrows are $\in W$, wrong way arrows are always $\in W$, and in every column all horizontal arrows should point in the same direction. Then we mod out by the equivalence relation $\sim$ generated by
+	\begin{enumerate}
+		\item Deleting identity columns;
+		\item Composing columns pointing in the same direction;
+		\item We \emph{don't} give the cancellation properties. 
+	\end{enumerate}
+	($n$ is the width of the hammock.)
+	The face maps are given by composing vertical arrows, thereby forgetting one of these rows.
+	The degeneracy maps are given by copying one row and adding vertical identity arrows.
+	(It's kind of like a nerve, and the reason you can do this is because the nerve is always a simplicial set.)
+	Composition of morphisms is given by stringing hammocks together (horizontally). 
+\end{definition}
+
+With this we can define homotopy limits and colimits more intrinsically. Let $(\Cc,W)$ be given. Then $L_W^H(\Cc)$ has a universal property with respect to 
+
+\begin{example}
+	Let $P$ be the hopushout of a diagram
+	\begin{center}
+		\begin{tikzcd}
+			A \arrow[r] \arrow[d] & B\\
+			C
+		\end{tikzcd}
+		$\in \Cc$
+	\end{center}
+
+	Then the universal property is $L_H^W(\Cc)(P,Z) \cong L_W^H(\Cc)(B,Z) \times^h_{\Cc(A,Z)} L_W^H(\Cc)(C,Z)$, where $\cong$ is a weak equivalence in simplicial sets. The latter is a homotopy pullback in simplicial sets (or in $\mathbf{Top}$ if one prefers, take geometric realizations), and the former is a simplicial set by definition.
+\end{example}
+
+Is this really necessary? It seems to be a monstrosity. What are the advantages? It's an intrinsic object upto equivalence of $\infty$ categories. We had pairs of different categories which gave different presentations of the same thing, but they give equivalence $L_H$'s.
+
+\begin{definition}
+	Given a simplicially enriched category we can define its \emph{homotopy category} $Ho\Cc$ which is a category with $\op{Ob}Ho(\Cc) := \op{Ob}\Cc$ and $Ho(\Cc)(A,B) := \pi_0(\Cc(A,B)_\bullet) = \pi_0(|\Cc(A,B)_\bullet|)$.
+\end{definition}
+
+\begin{proposition}
+	$Ho(L_W^H(\Cc)) = \Cc[W^{-1}]$.
+\end{proposition}
+
+\begin{proof}
+	We had two of the three properties of the localization in the definition of the Hammock localization. We just need to show the third property holds (**). It's a 1-simplex between the two rows, so they're identified. Let's call that a proof.
+
+	[A path is a zig-zag between 1-simplices.] Upto the relation of lying in the same connected components, such a pair of wrong way and right way $f$s are connected to the identity path. They become the same representatives of a morphism in the homotopy category.
+\end{proof}
+
+\marginpar{Peter is naming these 1 1/2, 1 3/4, etc. Ingo: ``It's a good thing that the rationals are dense in the reals.''}
+\begin{definition}
+	Let $\Cc$ be a simplicial category. $A,B \in \op{Ob}\Cc$ are equal if they are isomorphic in $Ho(\Cc)$. 
+\end{definition}
+
+\begin{definition}
+	Let $\Cc$, $\mathcal{D}$ be simplicially enriched categories and $\Cc \xrightarrow{f} \mathcal{D}$ be a enriched functor, i.e., 
+	\begin{align*}
+		\Cc(A,B)_\bullet \to \mathcal{D}(F(A),F(B))_\bullet
+	\end{align*}
+	is a map of simplicial sets. We call this a (Dwyer-Kan) equivalence if 
+	\begin{enumerate}
+		\item Every object in $\mathcal{D}$ is equivalence to one in $F(\Cc)$. ``Essentially surjective''
+		\item All of the maps $\C(A,B)_\bullet \to \mathcal{D}(F(A),F(B))_\bullet$ are weak equivalences, which we think of as ``fully faithful'' in our new setting. 
+	\end{enumerate}
+\end{definition}
+This is what it means to be the same presentation. 
+
+An $(\infty,1)$-category is a simplicially enriched categories up to equivalence. If you take a space and you take the points as objects, and the paths as morphisms, homotopies between paths as a 2-morphism, and homotopies between homotopies as 3-morphisms, etc. you have a whole tower of morphisms at every level. This is the basic example of an $\infty$-category. 
+
+Higher simplices are the higher morphisms.
+
+We have the pair
+
+(Simplicially enriched categories with enriched functors, DK-equivalences)
+
+And this is a relative category, a model for $(\infty,1)$-category. There are different ``models'' for $(\infty,1)$-categories, e.g. quasicategories (Borchan-Vogt, Joyal, Lurie). 
+
+We wanted to invert some morphisms in a category, got a natural notion of equivalence. Now we get asimplicially enriched category from this sort of thing. But why do we need to develop a theory of simplicially enriched categories of $(\infty,1)$-categories?
+\begin{theorem}[(Dwyer-Kan)]
+	Every simplicially enriched category $\Cc$ is Dwyer-Kan equivalent to some $L_W^H(\mathcal{D})$ for some class of morphisms. 
+\end{theorem}
+(This is completely general $\infty$-category theory.) So we didn't get anything that we didn't want.
+
+To gloss over this derived functor business and to replace spaces by other spaces, etc. we're just going to assume everything is derived. In $(\infty,1)$-categories say colimit, limit, Kan extension, etc. for what has the usual universal property, but up to weak equivalence of the hom simplicial sets.
+
+For example, $X \in \Cc$ a simplicially enriched category, write $\Sigma X$ for the pushout of $X$ along two points
+\begin{center}
+	\begin{tikzcd}
+		X \arrow[r] \arrow[d] &*\\
+		*
+	\end{tikzcd}
+\end{center}
+because that's what we'd get in spaces if we'd derived. We replace points by mapping cylinders, then you glue and obtain a suspension (***). Or e.g. $X$ is a ``terminal object'' if $\Cc(Z,X) \cong *$ for all $Z \in \Cc$ up to equivalence (if it's an isomorphism it's actually a terminal object).
+
+The time has come to remind us of this hexagon. Going infinity-categorical, we write a more refined localization. 
+$\mathbf{Spaces}$ play the role of Sets. 
+
+The next thing we have is stabilizaiton. Cohomology theories have this suspension isomorphism $H^n(\Sigma X) \cong H^{n-1}(X)$. So $\Sigma$ should factorize through somewhere where suspension becomes an equivalence, the morphism $\mathbf{Spaces}_* \xrightarrow{\Sigma^\infty} \mathbf{Spaces}_*\langle \Sigma^{-1} \rangle$. Then we go to $H\Z\op{-Mod} = D(Ab)$. 
+
+\section{Stabilization}
+As we go around the hexagon the categories become more and more algebraic [The homotopy category of Spectra is additive?]
+
+What we want: given an $(\infty-)$category $(\C,F: \C \to \C)$ we want a category $(\C\langle F^{-1} \rangle, \overline{F} \xrightarrow{\sim} \overline{F})$ such that for any $H: (\Cc,F) \to (\mathcal{D},\mathcal{D} \xrightarrow{G} \mathcal{D})$ which commutes with these endofunctors, i.e. $H \circ F \cong G \circ H$, the functor $H$ should factorize through $\C\langle F^{-1} \rangle$ (5*). 
+
+A morphism of infinity categories with endofunctors $(\Cc,F) \to (\mathcal{D},G)$ is a functor such that $H \circ F = G \circ H$. 
+
+How to construct this? Look at modules. If you have a module $M$ over a ring $R$, we can localize the module $M$ at some point $r \in R$ to obtain $M[r^{-1}]$, which we can think of as
+\[
+M[r^{-1}] = \op{colim}(M \xrightarrow{\cdot r} M \xrightarrow{\cdot r} M \to \dots)
+\]
+(6*)
+
+Same strategy for stabilization:
+\[
+\Cc \to \op{colim}(\Cc \xrightarrow{F} \Cc \xrightarrow{F} \Cc \to \dots) =: \Cc \langle F^{-1} \rangle.
+\]
+(colimit in our infinity category of infinity categories)
+
+\begin{exercise}
+	Find an example in $\mathbf{Cat}$ (so a normal category) and see whether one can understand it. 
+\end{exercise}
+
+\begin{example}
+	The category $\mathbf{Spaces}_*$ with the suspension endofunctor $\Sigma$. The category $\mathbf{Spaces}_*$ is very nice: complete, cocomplete, etc. It's presentable, i.e., every space is a directed colimit of spheres and the one-point space $*$. This is the statement that every topological space is weak equivalent to a CW-complex; disks are the points, since disks are contractible.
+
+	Call $\op{Pres}^L := \infty$-category of presentable $\infty$-categories and functors which are left adjoints ($\Leftrightarrow$ colimit-preserving functors). If we consider right adjoints, we get $\op{Pres}^R$, but $\op{Pres}^L = (\op{Pres}^R)^{op}$. One great place to read about this is Zizinski's Bourbaki article. It's a new syntax: you use the same words, but they mean different things now. It turns out that virtually everything in usual category theory is true in $\infty$-categories, though it's sometimes monstrous to prove.
+
+	An adunction in $(\mathbf{Top}_*/\mathbf{Spaces}_*$: 7* ($\Omega Y$: paths which start at the base point). This adjunction passes over to $\mathbf{Spaces}_*$.
+
+	By definition stabilization inverts the suspension functor:
+	\[
+	\mathbf{Spaces}_*\langle \Sigma^{-1} \rangle := \op{colim}_{\text{in }Pres^L} (\mathbf{Spaces}_* \xrightarrow{\Sigma} \mathbf{Spaces}_* \xrightarrow{\Sigma} \dots)
+	\]
+	Colimits become limits in $\op{Pres}^R$, and the equivalence comes from taking adjoints, so 
+	\[
+	\mathbf{Spaces}_* = \op{lim}_{\text{in }\op{Pres}^R} (\mathbf{Spaces}_* \xleftarrow{\Omega} \mathbf{Spaces}_* \xleftarrow{\Omega} \mathbf{Spaces}_* \xleftarrow{\Omega} \dots)
+	\]
+	Of course you have to know that you can take such a colimit, and it's a fact by Lurie that $\op{Pres}^L$ is cocomplete.
+
+	In usual category theory we take a product of all of these objects and take a subobject of compatible objects. If we have $X_0,X_1,X_2,\dots$ in these spaces, the objects of this limit are
+	\[
+	(X_i, f: \Omega X_{i+1} \xrightarrow{\sim} X_i \,|\, i \in \N). 
+	\]
+	So the weak equivalences $f$ are part of the datum now.
+
+	Brown representability theorem: if a functor $F: \op{Ho}\mathbf{Top}_*^{op} \to \mathbf{Set}$ satisfies
+	\begin{enumerate}
+		\item $F(\bigvee_\alpha X_\alpha) = \prod_\alpha F(X_\alpha)$;
+		\item (8*)
+	\end{enumerate}
+	Then there exists $Y \in \mathbf{Top}_*$ such that $F(-) \cong \op{Ho}(\mathbf{Top}_*)(-,Y)$. So the theorem gives a condition for representability. In particular, if $E^*$ is a cohomology theory then each $E^n$ satisfies (1) and (2) (Exercise! Something like Mayer-Vietoris for (2)) so each $E^n$ is representable, i.e. we have objects $E_n$ such that
+	\[
+	E^n(-) = \op{Ho}(\mathbf{Top}_*)(-,E_n). 
+	\]
+	We have suspension isomorphisms
+	\[
+	\op{Ho}(\mathbf{Top}_*)(\Sigma X,E_n) \cong E^n(\Sigma X) \cong E_{n-1}(X) \cong \op{Ho}(\mathbf{Top}_*)X,E_{n-1}). 
+	\]
+	But $\op{Ho}(\mathbf{Top}_*)(\Sigma X,E_n) \cong \op{Ho}(\mathbf{Top}_*)(X,\Omega E_n)$ so by the Yoneda lemma we get $\Omega E_n \cong E_{n-1}$. This precisely means that we have a spectrum (an object of $\mathbf{Spaces}_*\langle \Sigma^{-1} \rangle$) representing $E^*$.
+\end{example}
+
+% \input{assets/diag3}
 \end{document}
