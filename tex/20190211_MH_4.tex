@@ -1,0 +1,132 @@
+\documentclass[../MH_Total.tex]{subfiles}
+\begin{document}
+% \begin{center}
+% 	\begin{tikzcd}
+% 		A \ar[d,phantom,near start, "\vdots"]\\
+% 		B
+% 	\end{tikzcd}
+% \end{center}
+
+% \begin{center}
+% 	\begin{tikzcd}
+% 		& X_{11} \arrow[d,"\sim"]\\
+% 		& X_{21} \arrow[dd,"\sim"]\\
+% 		A\\
+% 		&X_{31} \arrow[d,phantom, near start, "\vdots"]\\
+% 		& X_{n1}
+% 	\end{tikzcd}
+% \end{center}
+
+We learn last session what the stabilization of a category with respect to an endofunctor was. It would probably be a good idea... well one can't indulge too much about the topological case here. Eventually we want to come to motivic stuff and half the course is over by now.
+
+Maybe it's a good time to go to schemes.
+
+\section{Schemes and Sheaves}
+It's the point of these lectures that you don't need to learn what schemes are for motivic homotopy theory. 
+
+Remember our hexagon. Now we want to do something similar for schemes. There will be a similar hexagon where $\mathbf{Top}$ is replaced by the category $\mathbf{Sch}$ of schemes.
+
+\subsection{Schemes}
+The shortest non-complete definition of scheme is probably the following. Let $R$ be a ring. A scheme is a certain kind of functor $R\mathbf{-Alg} \to \mathbf{Set}$ satisfying axioms: Zariski sheaves + existence of ``good'' coverings by representables.
+
+\begin{example}
+	We can model geometric things by these things
+
+	\begin{enumerate}
+		\item ``Circle'':
+	\[
+	A \mapsto \{(x,y) \,|\, x^2 + y^2 = 1\} \subseteq A^2.
+	\]
+	Why is this a functor? If $A \xrightarrow{f} B$ then the functor is given by $(x,y) \mapsto (f(x),f(y))$; because algebra homomorphisms preserve plus and times it will preserve this equation. This is representable, since we have
+	\[
+	\{(x,y) \,|\, x^2 + y^2 = 1\} = R\mathbf{-Alg}(R[x,y]/(x^2 + y^2 - 1),A)
+	\]
+
+		\item $\mathbb{A}^1: A \mapsto A = R-\mathbf{Alg}(R[x],A)$
+		\item $\mathbb{G}_m: A \mapsto A^* \cong \{(x,y) \in A^2 \,|\, xy = 1\} = R-\mathbf{Alg}(R[x,y]/(xy - 1),A)$.
+
+		We said we needed good coverings, and the identity map is a good covering. 
+
+	\item $\mathbb{A}^n - \{0\}: A \mapsto \{(a_1,\dots,a_n) \,|\, \exists i, a_i \text{ is a unit}\}_{Zar}$, where we Zariski-sheafify. [Doesn't give you $\mathbb{A}^n_R - \{0\}$ over $R$ not a field, since we usually take nonzero elements. But this is what it is fiberwise.]
+
+	Zariski sheafification: checking the defining condition on each the members of a covering.
+
+	\begin{example}
+		Let $R = \Z$. Then $(\mathbb{A}^2 - 0)(\Z) \ni (3,5)$. It's not in that defining set, since it consists of pairs of which one of the entries is a unit. But it will be in the Zariski sheafification. A covering is a bunch of localizations of this ring such that the prime ideals which I localize at generate the whole ring, for example $\Z_{(3)} = \Z[1/3]$ and $\Z_{(5)}[1/5]$, since $3\Z + 5\Z = \Z$. For this tuple $(3,5)$ to be in the ring, we need to check that it's in each of these localizations.
+	\end{example}
+	\end{enumerate}
+\end{example}
+
+A ``good covering'' by representables means the following: there exists $A_i \in R\mathbf{-Alg}$ and $p$ such that for the following pullback diagram the category of functors $\mathbf{Set}^{R\mathbf{-Alg}}$
+\begin{center}
+	\begin{tikzcd}
+		R\mathbf{-Alg}(C,-)&\prod_i R\mathbf{-Alg}(A,-) \arrow[d,"p"]\\
+		R\mathbf{-Alg}(B,-) \arrow[r] &F
+	\end{tikzcd}
+\end{center}
+the pullback is again representable, and a morphism between representables is given by a morphism of the representing objects, and we want $B \to C \cong B[S^{-1}]$ to be a localization.
+
+$A_i \in R\mathbf{-Alg}$ and $p$ such that ``locally'' $p$ is surjective and for every $f: R\mathbf{-Alg}(B,-) \to F$ the pullback is again representable, say by $C$, and the corresponding map (by Yoneda) is a localization.
+
+We cut down to those spaces which are locally affine, and now we're in the business of algebraic geometry. All the technical details become more simplified in the internal logic of the Zariski topos. Then those functors look like sets and the maps look like normal maps. And an open subfunctor is a subset given by inequalities.
+
+\subsection{Sheaves}
+A functor $F: \Cc^{op} \to \mathbf{Set}$ is a \emph{sheaf} if for every $c \in \Cc$ and for every covering $\{C_i \xrightarrow{f_i} C \,|\, i \in I\}$ the sequence
+\begin{center}
+	\begin{tikzcd}
+	F(c) \arrow[r] & \prod_{i \in I} F(c_i)\arrow[r, shift left=2] \arrow[r, shift right = 2] & \prod_{j,k}F(c_j \times_{c}c_k)
+	\end{tikzcd}
+	(where $c_j \times_c c_k$ is the fiber product of $c_j \to c$ and $c_k \to c$) is an equalizer. In the case of open subsets of a space $X$, the pullback is the intersection and being an equalizer means that the function agrees on the intersection of any two open covers. 
+\end{center}
+
+The notion of a covering is part of the data of a Grothendieck topology. Some others are, for example, closure under pullbacks. It's a collection of covering sets $\{c_i \to c\}$. This gives us the category of sheaves $\mathbf{Sh}(\Cc)$ on our category $\Cc$. It's a subcategory of the collection of all contravariant functors $\mathbf{Set}^{\C^{op}}$, and the inclusion functor has a left-adjoint, called sheafification.
+
+The universal property of the Yoneda embedding. We have a functor
+\begin{align*}
+	\Cc &\to \mathbf{Set}^{\C^{op}}\\
+	c &\mapsto \Cc(-,c).
+\end{align*}
+This is the Yoneda embedding. It has the following universal property: for any cocomplete category $\mathcal{D}$ and a functor $F: \Cc \to \mathcal{D}$ there is a unique colimit-preserving continuation of $F$ to a functor $\widetilde{F}: \mathbf{Set}^{\Cc^{op}} \to \mathcal{D}$.
+
+\begin{center}
+	\begin{tikzcd}
+		\Cc \arrow[r,"\gamma"] \arrow[dr,"F"] & \mathbf{Set}^{\Cc^{op}} \arrow[d,"\widetilde{F}"]\\
+		& \mathcal{D}
+	\end{tikzcd}
+\end{center}
+
+Given $G \in \mathbf{Set}^{\Cc^{op}}$ we have
+\[
+Nat(\Cc(-,c),G) \cong G(c).
+\]
+Thus $G$ is determined by all natural transformations from representable functors. In fact, (*).
+
+``This is a coend my only cofriend''. 
+
+[You can think of this as taking colimits of all sorts of diagrams in the bigger category of presheaves and making a category of all of those.] 
+
+$\gamma$ destroys colimits that already exist in $\Cc$. Suppose (2*) is a pushout in $\Cc$. 
+
+But notice that the condition of being a sheaf is
+\[
+G(D) \xrightarrow{\exists} G(B) \times G(C) \xrightarrow{i^*,j^*} G(A)
+\]
+which is exactly what we need! So: sheaves are exactly those functors from whose point of view the square (obtaining by the Yoneda embedding) is still a pushout!
+
+So the universal property of sheafification $\circ$ yoneda:
+
+So if it maps pushouts to pushouts, it factorizes through $\mathbf{Sh}(\Cc)$ (3*). 
+
+\begin{exercise}
+Show that if $\Cc$ has an initial object then the Yoneda embedding never preserves that initial object. 	
+\end{exercise}
+
+In 7 minutes there will be an invasion of logicians in here. So let's end with an outlook.
+
+\subsection{Outlook}
+What we want is motivic homotopy for schemes. We look at cohomology theories for the category of smooth schemes $\mathbf{SmoothSch}/k$. (4*)
+
+[Descent: you can determine the value of a scheme by restricting to some smaller things. You can phrase this by saying that certain pushouts are preserved.]
+
+
+\end{document}
