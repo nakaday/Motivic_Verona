@@ -1,5 +1,11 @@
-\documentclass[../MH_Total.tex]{subfiles}
+\def\rootpath{..}
+\documentclass[class=report, crop=false,a4paper,twoside]{standalone}
+\usepackage[subpreambles=true]{standalone}
+\usepackage{\rootpath/basic_report}
+
+
 \begin{document}
+\chapter{Lecture 1}
 \section{Introduction}
 Abstract and motivic homotopy theory. You get a special gift if you're the first to ask a mathematical question, so ask questions!
 
@@ -98,7 +104,8 @@ Motivic homotopy theory mimics this picture here. We want to do the same for sch
 Let's get more detailed... and more boring.
 
 \begin{definition}
-	A \emph{relative category} is a pair $(\Cc, W$ where $\Cc$ is a category and $W \subseteq \op{Mor}\Cc$. We want to understand the morphism in $W$ are equivalences.
+	A \emph{relative category} is a pair $(\Cc, W)$ where $\Cc$ is a category and $W \subseteq \op{Mor}\Cc$. \\
+	Elements in $W$ are "special" morphisms that we want to understand as \emph{weak equivalences}.
 \end{definition}
 	\begin{example}
 		\begin{enumerate}
@@ -115,9 +122,11 @@ Let's get more detailed... and more boring.
 
 			By definition $\pi_n(X)$ is corepresentable, and it turns out it's group-valued, but whatever it's functor. It measures $n$-dimensional holes, what kinds of holes are there and how many.
 
-			\item $\Cc = \mathbb{T}op$, $W = \{X \xrightarrow{f} Y \,|\, H_n(f) \text{ iso }\forall n \in \N_0\}$. 
-
-			(3) and (4) are of the form $\C \xrightarrow{F} \mathcal{D}$, $W := F^{-1}(\op{Iso}(\mathcal{D})$.
+			\item $\Cc = \mathbb{T}op$, $W = \{X \xrightarrow{f} Y \,|\, H_n(f) \text{ iso }\forall n \in \N_0\}$
+				, where $H_n$ is the \emph{singular homology functor}.
+				\begin{remark}
+					(3) and (4) are of the form $\C \xrightarrow{F} \mathcal{D}$, $W := F^{-1}(\op{Iso}(\mathcal{D})$.			
+				\end{remark}
 
 			\item $R$ a ring, then $\C = \op{Ch}_R$ = chain complexes of $R$-mod, and $W = $ quasi-isomorphisms (morphisms inducing isos on all $H_n$).
 
@@ -129,8 +138,9 @@ Let's get more detailed... and more boring.
 		\end{enumerate}
 	\end{example}
 
+Think to \emph{localization} as a procedure to force elements in $W$ to be isomorphisms.
 \begin{definition}
-	A (/the) \emph{localization} of the relative category $(\Cc,W)$ (or the localization of $\Cc$ w.r.t. $W$) is a functor
+	A (/the) \emph{localization} of the relative category $(\Cc,W)$ (or the localization of $\Cc$ w.r.t. $W$) is a pair $(\Cc[W^{-1}] , L)$ consisting in a category and a functor
 	\[
 	L: \Cc \to \Cc[W^{-1}]
 	\]
@@ -140,7 +150,7 @@ Let's get more detailed... and more boring.
 		\item It should be initial, the most economical way of doing this. Formally, for any $F: \Cc \to \mathcal{D}$ such that $F(W) \subseteq \op{Iso}(\mathcal{D})$ there should exist up to natural isomorphism
 		\begin{center}
 			\begin{tikzcd}
-				\Cc \arrow[r,"L"] \arrow[dr,"F"] & \Cc[W^{-1}] \arrow[d,dotted,"\exists! \text{ up to na. iso}"]\\
+				\Cc \arrow[r,"L"] \arrow[dr,"\parbox{10em}{\flushright $\forall F$ \\ s.t. $F(W) \subseteq \op{Iso}(\mathcal{D})$}"'] & \Cc[W^{-1}] \arrow[d,dotted,"\exists! \text{ up to na. iso}"]\\
 				& \mathcal{D}. 
 			\end{tikzcd}
 		\end{center}
@@ -149,24 +159,26 @@ Let's get more detailed... and more boring.
 \end{definition}
 
 	\begin{exercise}
-	Any category $\widetilde{\mathcal{C}[W^{-1}]}$ equivalent to a strict localization will be a localization but not in general strict (\emph{Hint}: consider $\C = (a \to b$. Not much to localize. Can find a strict localization, and can find equivalent categories to this strict localization which are not strict.)
+	Any category $\widetilde{\mathcal{C}[W^{-1}]}$ equivalent to a strict localization will be a localization but not in general strict.
+	\\
+	(\emph{Hint}: consider $\C = (a \to b)$. Not much to localize. Can find a strict localization $\C[-1] = (a \xleftrightarrow{\sim} b)$, and can find equivalent categories to this strict localization which are not strict.)
 	\end{exercise}
 
-\begin{remark}
-	$\Cc \xrightarrow{L} \Cc[W^{-1}]$ is a strict localization iff the following is a pushout 
-	\begin{center}
-		\begin{tikzcd}
-			\prod_W (* \to *) \arrow[r] \arrow[d,hook] & \Cc \arrow[d,"L"]\\
-			\prod_W (* \xrightarrow{\sim} *) \arrow[r] & \Cc[W^{-1}].
-		\end{tikzcd}
-	\end{center}
-	See video for explanation. 
+\begin{remark}\label{Remark:motivatelocalization}
+	$\Cc \xrightarrow{L} \Cc[W^{-1}]$ is a strict localization iff the following is a pushout:
+	\input{\rootpath/tex/assets/diag2}
+	\footnote{See video for explanation!}
 \end{remark}
 
 \subsection{Construction}
-$\op{Ob}(\Cc[W^{-1}]) = \op{Ob}\Cc$. 
+Remarl \ref{Remark:motivatelocalization} suggests the following construction for $\Cc[W^{-1}]$:
 
-$\Cc[W^{-1}](A,B) := \{A \xleftarrow{\sim} X_1 \to X_2 \xleftarrow{\sim} X_3 \to \dots X_k \xleftarrow{\sim} B\}/\sim$ where the backwards arrows are only from $W$. We call this a zig-zag.
+\begin{align*}
+	\op{Ob}(\Cc[W^{-1}]) &:= \op{Ob}\Cc \\
+	\Cc[W^{-1}](A,B) &:= \{A \xleftarrow{\sim} X_1 \to X_2 \xleftarrow{\sim} X_3 \to \dots X_k \xleftarrow{\sim} B\}/\sim
+\end{align*}
+
+ where the backwards arrows are only from $W$. We call this a zig-zag.
 
 The $\sim$ should be the equivalence relation generated by the following relations:
 \begin{enumerate}

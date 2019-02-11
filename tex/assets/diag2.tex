@@ -3,7 +3,7 @@
 %
 %-------------------------------------------------
 
-\documentclass{standalone}
+\documentclass[preview]{standalone}
 \usepackage{tikz}
 \usetikzlibrary{cd}
 \usetikzlibrary{arrows}
@@ -46,9 +46,9 @@
 	It is strict because:
 	\begin{center}
 		\begin{tikzcd}
-			& \mathcal{C} \ar[d,"L"] \ar[ddr,bend left,"F"]& &
+			& \mathcal{C} \ar[d,"L"] \ar[ddr,bend left,"\ F \text{ s.t. } F(W) \subseteq \text{Iso}(\mathcal{D})"]&
 			\\
-			\amalg_W(\isoarrowcat) \ar[r] \ar[rrd,bend right] & \mathcal{C}[W^{-1}] \ar[rd,dashed,"\exists !"] & & F(W)\subseteq \text{Iso}(\mathcal{D})
+			\amalg_W(\isoarrowcat) \ar[r] \ar[rrd,bend right] & \mathcal{C}[W^{-1}] \ar[rd,dashed,"\exists !"] &
 			\\
 			& & \mathcal{D}
 		\end{tikzcd}	

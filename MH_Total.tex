@@ -1,11 +1,9 @@
 \documentclass[twoside, a4paper]{report}
-\usepackage{subfiles}
-% \usepackage[subpreambles=true]{standalone}
-\usepackage{standalone}
-\usepackage{hyperref}
-\usepackage{basic_report}
-\usepackage{bbm}
-\usepackage{bm}
+\providecommand{\rootpath}{.}
+\usepackage{\rootpath/basic_report}
+\usepackage[subpreambles=true]{standalone}
+
+
 
 %Symbols
 \usepackage{dictsym}
@@ -27,19 +25,22 @@
 %\usepackage{compstyle}
 %\usetikzlibrary{cd}
 
+
+
+
+
+
 \title{Introduction to Abstract and Motivic Homotopy Theory}
 \author{Dr.\,Peter Arndt}
 \date{Summer 2019}
 \begin{document}
-\maketitle
-
-\tableofcontents
-\newpage
-
-\chapter{Lecture 1}
-\subfile{tex/20190207_MH_1}
-% \include{tex/assets/diag1}
-
-\chapter{Lecture 2}
-\subfile{tex/20190207_MH_2}
+	\maketitle
+	
+	\tableofcontents
+	\newpage
+	
+	\input{tex/20190207_MH_1}
+	\input{tex/20190207_MH_2}
+	\input{tex/20190211_MH_3}
+	\input{tex/20190211_MH_4}
 \end{document}

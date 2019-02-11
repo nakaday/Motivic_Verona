@@ -1,5 +1,10 @@
-\documentclass[../MH_Total.tex]{subfiles}
+\def\rootpath{..}
+\documentclass[class=report, crop=false,a4paper,twoside]{standalone}
+\usepackage[subpreambles=true]{standalone}
+\usepackage{\rootpath/basic_report}
+
 \begin{document}
+\chapter{Lecture 3}
 Let's get excited for day three of the lecture.
 
 The afternoon will consist only of one hour. IT's logic day! One lecture about reverse mathematics at 15:30. After that there's a lecture of Peter's. 
@@ -135,7 +140,7 @@ Is this really necessary? It seems to be a monstrosity. What are the advantages?
 	[A path is a zig-zag between 1-simplices.] Upto the relation of lying in the same connected components, such a pair of wrong way and right way $f$s are connected to the identity path. They become the same representatives of a morphism in the homotopy category.
 \end{proof}
 
-\marginpar{Peter is naming these 1 1/2, 1 3/4, etc. Ingo: ``It's a good thing that the rationals are dense in the reals.''}
+\marginnote{Peter is naming these 1 1/2, 1 3/4, etc. Ingo: ``It's a good thing that the rationals are dense in the reals.''}
 \begin{definition}
 	Let $\Cc$ be a simplicial category. $A,B \in \op{Ob}\Cc$ are equal if they are isomorphic in $Ho(\Cc)$. 
 \end{definition}

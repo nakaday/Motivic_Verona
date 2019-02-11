@@ -1,5 +1,11 @@
-\documentclass[../MH_Total.tex]{subfiles}
+\def\rootpath{..}
+\documentclass[class=report, crop=false,a4paper,twoside]{standalone}
+\usepackage[subpreambles=true]{standalone}
+\usepackage{\rootpath/basic_report}
+
+
 \begin{document}
+\chapter{Lecture 2}
 \section{Interlude: Simplicial Sets}
 \begin{definition}
 	$\Delta$ is the category of (nonempty) finite linearly ordered sets with order-preserving morphisms. So its objects consist of the ordered set $[n] = \{1 < 2 < \dots < n\}$ for each $n \in \Z^{\ge 0}$.
@@ -171,12 +177,15 @@ and the arrow \emph{does} exist.
 		\end{tikzcd}
 	\end{center}
 	two of the three are weak equivalences, then the third is a weak equivalence.
-	\marginpar{This is harmless for weak equivalences - if two of them are isomorphisms then the third should be too. We can enhance $\Cc$ without changing the localization.}
+	\marginnote{
+		This is harmless for weak equivalences - if two of them are isomorphisms then the third should be too. We can enhance $\Cc$ without changing the localization.
+		}
 
 	Then $Q$ preserves equivalences by 2-of-3, so $F \circ Q$ preserves equivalences. So we have the following diagram:
 	\begin{center}
 		\begin{tikzcd}
-			\Cc \arrow[r,bend right,"Q"] \arrow[r,bend left,"\op{Id}"] \arrow[d,"L"] & \Cc \arrow[r,"F"] & \mathcal{D} \arrow[d,"L'"]\\
+			\Cc \arrow[r,bend right,"Q"] \arrow[r,bend left,"\op{Id}"] \arrow[d,"L"] & \Cc \arrow[r,"F"] & \mathcal{D} \arrow[d,"L'"]
+			\\
 			\Cc[W^{-1}] \arrow[rr,dotted,"\op{Ran}_L(L' \circ F)"] & & \mathcal{D}[V^{-1}]
 		\end{tikzcd}
 	\end{center}
@@ -201,7 +210,7 @@ and the arrow \emph{does} exist.
 
 \begin{figure}[h]
 \centering{
-\resizebox{75mm}{!}{\input{mapping_cylinder.pdf_tex}}
+%\resizebox{75mm}{!}{\input{\rootpath /tex/mapping_cylinder.pdf_tex}}
 \caption{Top view.}
 \label{fig:Mapping Cylinder}
 }

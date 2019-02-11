@@ -1,16 +1,30 @@
-\usepackage{standalone}
-\usepackage{amssymb, amsthm, amsmath}
-\usepackage{mathrsfs}
-\usepackage{tikz-cd}
-\usepackage{stmaryrd}
-\usepackage{tabu}
+%-----------------------------------------------------------------
+% Custom packages:
+%			https://www.overleaf.com/learn/latex/Writing_your_own_package 
+%
+%-----------------------------------------------------------------
+\ProvidesPackage{basic_report}[2019/02/11 basic report package]
+
+
+\RequirePackage{amssymb, amsthm, amsmath}
+\RequirePackage{mathtools}
+\RequirePackage{mathrsfs}
+\RequirePackage{tikz-cd}
+\RequirePackage{stmaryrd}
+\RequirePackage{tabu}
 %Theorem numbering
-\usepackage{thmtools}
-% \usepackage{thm-restate}
-\usepackage{cleveref}
+\RequirePackage{thmtools}
+% \RequirePackage{thm-restate}
+
+\RequirePackage{marginnote}
+
+\RequirePackage{hyperref}
+\RequirePackage{cleveref}
+\RequirePackage{bbm}
+\RequirePackage{bm}
 
 %graphics
-\usepackage{graphicx}
+\RequirePackage{graphicx}
 
 \usetikzlibrary{matrix,arrows}
 
@@ -23,12 +37,15 @@
 
 % Hand made theorem
 
-%Counter for theorems, definitions, everything.
-\newcounter{count}[section]
+
 
 %End a section with a symbol
 \def\endenv{\hfill \ensuremath\leftslice \smallskip}
 \def\nosliceendenv{\hfill \smallskip}
+
+%Counter for theorems, definitions, everything.
+\newcounter{count}[section]
+\setcounter{count}{0}
 
 \def\begintheorem{\par\medskip\noindent\refstepcounter{count}\hbox{\bf Theorem \arabic{chapter}.\arabic{section}.\arabic{count}.}
 \it \ignorespaces
@@ -109,12 +126,12 @@
 
 
 %Custom Commands
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\Z}{\mathbb{Z}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\Z}{\mathbb{Z}}
 \renewcommand{\P}{\mathbb{P}}
 \newcommand{\N}{\mathbb{N}}
-\newcommand{\op}[1]{\operatorname{#1}}
+\providecommand{\op}[1]{\operatorname{#1}}
 \renewcommand{\S}{\mathcal{S}}
 \newcommand{\Cc}{\mathcal{C}}
 \newcommand{\C}{\mathbb{C}}
