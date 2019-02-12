@@ -20,7 +20,7 @@
 
 
 \def\smallcat{
-	\adjustbox{scale=1}{%
+	\adjustbox{scale=0.75}{%
 		\tikz[baseline=.1ex]{
 			\node (A) at (0, 0.5) {Mor};
 			\node (B) at (0, -0.5) {Ob};
@@ -32,7 +32,7 @@
 }
 
 \def\groupcatA{
-	\adjustbox{scale=1}{%
+	\adjustbox{scale=0.75}{%
 		\tikz[baseline=.1ex]{
 			\node (A) at (0, 0.5) {$G \times G$};
 			\node (B) at (0, -0.5) {$G$};
@@ -44,7 +44,7 @@
 }
 
 \def\groupcatB{
-	\adjustbox{scale=1}{%
+	\adjustbox{scale=0.75}{%
 		\tikz[baseline=.1ex]{
 			\node (A) at (0, 0.5) {$G $};
 			\node (B) at (0, -0.5) {$\{\ast\}$};
@@ -79,6 +79,7 @@
 
 
 \begin{document}
+Let us look at a small category as
 $$ \smallcat $$
 
 Consider a group $G$, there are two canonically associated categories.
@@ -107,9 +108,7 @@ The second is the usual category with only one object
 \begin{displaymath}
 	BG \coloneqq \left(\groupcatB\right)
 \end{displaymath}
-We have at the same time two pullbacks:
-
-\begin{minipage}[t]{0.5\textwidth}
+We have at the same time two pullbacks
 \begin{center}
 	\begin{tikzcd}
 		\left(\dummyG\right) \ar[r] \ar[d]& EG \ar[d]
@@ -117,8 +116,6 @@ We have at the same time two pullbacks:
 		\left(\dummyast\right) \ar[r] & BG
 	\end{tikzcd}
 \end{center}
-\end{minipage}
-\begin{minipage}[t]{0.5\textwidth}
 \begin{center}
 	\begin{tikzcd}
 		\left(\dummyast\right) \ar[r] \ar[d]& \left(\dummyast\right) \ar[d]
@@ -126,8 +123,8 @@ We have at the same time two pullbacks:
 		\left(\dummyast\right) \ar[r] & BG
 	\end{tikzcd}
 \end{center}
-\end{minipage}
 
+Remedy: Derived Functors
 \end{document}
 
 

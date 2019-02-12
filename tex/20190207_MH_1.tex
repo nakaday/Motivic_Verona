@@ -171,7 +171,7 @@ Think to \emph{localization} as a procedure to force elements in $W$ to be isomo
 \end{remark}
 
 \subsection{Construction}
-Remarl \ref{Remark:motivatelocalization} suggests the following construction for $\Cc[W^{-1}]$:
+Remark \ref{Remark:motivatelocalization} suggests the following construction for $\Cc[W^{-1}]$:
 
 \begin{align*}
 	\op{Ob}(\Cc[W^{-1}]) &:= \op{Ob}\Cc \\
@@ -215,11 +215,16 @@ Composition is concatenation of zig-zags.
 \end{proposition}
 
 \begin{proof}
+	(sketch)\\
 	Define the morphism $\Cc \to \Cc[W^{-1}]$ by
 	\[
 	X \xrightarrow{f} Y \mapsto \{X \xrightarrow{f} Y\}
 	\]
-	where the latter is the zig-zag of length 1. It's pretty easy to show that it's universal (see the video). 
+	where the latter is the zig-zag of length 1. It's pretty easy to show that it's universal.
+	\input{\rootpath/tex/assets/diag3}	
+	About the uniqueness: $\bar{F}$ is determined on $\text{Mor}(\Cc) `` \subseteq '' \text{Mor}\Cc[W^{-1}]$.
+	This determines $\bar{F}$ on the inverses. Every morphisms in $\Cc[W^{-1}]$ is a composition of morphism from $\Cc$ and inverses.\\
+	(see the video for further details.) 
 \end{proof}
 
 It's an unwieldly and strange category we've constructed, a priori at least. The outcome of the construction is hard to control, in a way we'll make more precise. For example, this functor $L$ needn't be full or faithful:
@@ -235,7 +240,8 @@ Other counterexample to faithfulness: If in $\Cc$ we have $s: b \to a$ and $f,g:
 So we can start forcing relations we didn't expect before.
 
 \begin{exercise}
-	Let $\op{Ho}Top$ denote the category with objects topological spaces and $\op{Ho}Top(A,B) = \op{Top}(A,B)/\text{homotopy}$. Show that $\op{Ho}(Top) \cong \op{Top}[(X \times I \xrightarrow{\op{pr}} X)^{-1}]$. Use the counterexample above.
+	Let $\op{Ho}Top$ denote the category with objects topological spaces and $\op{Ho}Top(A,B) = \op{Top}(A,B)/\text{homotopy}$. \\
+	Show that $\op{Ho}(Top) \cong \op{Top}[(X \times I \xrightarrow{\op{pr}} X)^{-1}]$. (Hint: use the counterexample above.)
 
 	This category has a universal property: there's a functor $\op{Top} \to \op{Ho}Top$, and it's an intial functor among all functors which identify homotopical maps. Then you have to use the universal property to get maps both ways, and show that they compose to the identity.
 \end{exercise}

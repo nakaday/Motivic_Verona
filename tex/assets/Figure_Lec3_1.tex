@@ -1,0 +1,68 @@
+%-------------------------------------------------
+% Example 2.2.1
+%
+%-------------------------------------------------
+
+\documentclass[tikz]{standalone}
+
+\usetikzlibrary{cd}
+\usetikzlibrary{arrows}
+\usepackage{amsfonts,amssymb}
+\usepackage{mathtools}
+\usepackage{adjustbox}
+
+
+\def\ellipse{
+	\adjustbox{scale=1}{%
+		\tikz[baseline=.2em,scale=0.5]{
+	        \draw[fill=gray!40] (0,0) ellipse (1 and 0.5);
+	        \node at (0,0.75) {$X$}
+		}
+	}
+}
+\def\downcone{
+	\adjustbox{scale=1}{%
+		\tikz[baseline=.2em,scale=0.5,]{
+	        \shade[top color=blue!40!white,opacity=0.75] (-1,0) arc (180:0:1cm and 0.5cm) -- (0,-2) -- cycle;
+	        \draw [](-1,0) arc (180:360:1cm and 0.5cm) -- (0,-2) -- cycle;
+	        \draw [](-1,0) arc (180:0:1cm and 0.5cm);
+	        \draw[fill=gray!40] (0,0) ellipse (1 and 0.5);
+	        \node [circle,fill,inner sep=0.5pt] (V) at (0, -2) {};
+		}
+	}
+}
+\def\upcone{
+	\adjustbox{scale=1}{%
+		\tikz[baseline=.2em,scale=0.5,]{
+	        \draw[fill=gray!20,opacity=0.75] (0,0) ellipse (1 and 0.5);
+	        \draw [](-1,0) arc (180:360:1cm and 0.5cm) -- (0,2) -- cycle;
+	        \shade[top color=blue!40!white,opacity=1] (-1,0) arc (180:0:1cm and 0.5cm) -- (0,2) -- cycle;
+	        \draw [](-1,0) arc (180:0:1cm and 0.5cm);
+	        \node [circle,fill,inner sep=0.5pt] (V) at (0, 2) {};
+		}
+	}
+}
+\def\suspension{
+	\adjustbox{scale=1}{%
+		\tikz[baseline=.2em,scale=0.5,]{
+	        \shade[top color=blue!40!white,opacity=0.75] (-1,0) arc (180:0:1cm and 0.5cm) -- (0,-2) -- cycle;
+	        \draw [](-1,0) arc (180:360:1cm and 0.5cm) -- (0,-2) -- cycle;
+	        \draw [](-1,0) arc (180:0:1cm and 0.5cm);
+	        \draw[fill=gray!40] (0,0) ellipse (1 and 0.5);
+	        \node [circle,fill,inner sep=0.5pt] (V1) at (0, -2) {};
+	        \draw[fill=gray!20,opacity=0.75] (0,0) ellipse (1 and 0.5);
+	        \draw [](-1,0) arc (180:360:1cm and 0.5cm) -- (0,2) -- cycle;
+	        \shade[top color=blue!40!white,opacity=1] (-1,0) arc (180:0:1cm and 0.5cm) -- (0,2) -- cycle;
+	        \draw [](-1,0) arc (180:0:1cm and 0.5cm);
+	        \node [circle,fill,inner sep=0.5pt] (V2) at (0, 2) {};
+		}
+	}
+}
+
+\begin{document}
+	\begin{tikzcd}
+		\ellipse \ar[r] \ar[d] &  \upcone \ar[d] &
+		\\
+		\downcone \ar[r]& \suspension \ar[r,phantom,"=:"]&  \Sigma X
+	\end{tikzcd}
+\end{document}

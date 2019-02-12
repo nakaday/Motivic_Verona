@@ -1,5 +1,5 @@
 %-------------------------------------------------
-% Example 2.2.1
+% Example 
 %
 %-------------------------------------------------
 
@@ -12,22 +12,22 @@
 \usepackage{adjustbox}
 
 \def\emptycircle{
-	\adjustbox{scale=0.4}{%
-		\tikz[baseline=.2em]{
+	\adjustbox{scale=0.25}{%
+		\tikz[baseline=.2em,scale=0.5]{
 			  \draw[] (0,0) circle (4em);
 		}
 	}
 }
 \def\circle{
-	\adjustbox{scale=0.5}{%
-		\tikz[baseline=.2em]{
+	\adjustbox{scale=0.25}{%
+		\tikz[baseline=.2em,scale=0.5]{
 			  \draw[fill=gray!40] (0,0) circle (4em);
 		}
 	}
 }
 \def\sphere{
-	\adjustbox{scale=0.4}{%
-		\tikz[baseline=.2em,]{
+	\adjustbox{scale=0.2}{%
+		\tikz[baseline=.2em,scale=0.5,]{
 			  \shade[ball color = gray!40, opacity = 0.4] (0,0) circle (2);
 			  \draw (0,0) circle (2);
 			  \draw (-2,0) arc (180:360:2 and 0.6);
@@ -37,10 +37,15 @@
 	}
 }
 
+
 \begin{document}
-	\begin{tikzcd}
-		\emptycircle \ar[r,hookrightarrow] \ar[d,hookrightarrow] &  \circle \ar[d]
+	\begin{tikzcd}[row sep=scriptsize, column sep=scriptsize]
+		\emptycircle \ar[rr,hookrightarrow] \ar[dd,hookrightarrow] \ar[dr,equal]& &  \circle \ar[dr,"\mathclap{\sim}",sloped] \ar[dd]&
 		\\
-		\circle \ar[r]& \sphere
+		& \emptycircle \ar[rr,crossing over] & & \ast \ar[dd]
+		\\
+		\circle \ar[rr] \ar[dr,"\mathclap{\sim}",sloped] & & \sphere \ar[dr,dashed,"/" marking] \arrow[lluu, phantom, "\ulcorner", very near start]&
+		\\
+		& \ast \ar[rr] \ar[from=uu,crossing over] & & \ast
 	\end{tikzcd}
 \end{document}

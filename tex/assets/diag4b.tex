@@ -14,12 +14,12 @@
 \def\shape{
 	\adjustbox{scale=0.25}{%
 		\tikz[baseline=.1ex]{
-			\node (A) at (1, -0.5) {$\bullet$};
+			\node (A) at (0, 0.5) {$\bullet$};
 			\node (B) at (1, 0.5) {$\bullet$};
 			\node (C) at (0, -0.5) {$\bullet$};
 			% arrows
-			\draw[-stealth]   (B) edge (A) ;
-			\draw[-stealth]   (C) edge (A) ;
+			\draw[-stealth]   (A) edge (B) ;
+			\draw[-stealth]   (A) edge (C) ;
 		}
 	}
 }
@@ -27,12 +27,12 @@
 \def\diagram{
 	\adjustbox{scale=0.45}{%
 		\tikz[baseline=.1ex]{
-			\node (A) at (1, -0.5) {$A$};
+			\node (A) at (0, 0.5) {$A$};
 			\node (B) at (1, 0.5) {$B$};
 			\node (C) at (0, -0.5) {$C$};
 			% arrows
-			\draw[-stealth]   (B) edge (A) ;
-			\draw[-stealth]   (C) edge (A) ;
+			\draw[-stealth]   (A) edge (B) ;
+			\draw[-stealth]   (A) edge (C) ;
 		}
 	}
 }
@@ -40,11 +40,11 @@
 \def\imagediagram{
 	\adjustbox{scale=0.45}{%
 		\tikz[baseline=.1ex]{
-			\node (A) at (0, 0.5) {$D$};
+			\node (A) at (0, 0.5) {\color{gray}$A$};
 			\node (B) at (1, 0.5) {\color{gray}$B$};
 			\node (C) at (0, -0.5) {\color{gray}$C$};
-			\node (D) at (1, -0.5) {\color{gray}$A$};
-			\node (po) at (0.2,0.3){\color{gray}$\lrcorner$};
+			\node (D) at (1, -0.5) {$D$};
+			\node (po) at (0.7,-0.3){\color{gray}$\ulcorner$};
 			% arrows
 			\draw[-stealth,gray]   (A) edge (B) ;
 			\draw[-stealth,gray]   (A) edge (C) ;

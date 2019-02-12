@@ -1,5 +1,5 @@
 %-------------------------------------------------
-%Left Kan Extension
+%Right Kan Extension
 %
 %-------------------------------------------------
 
@@ -8,15 +8,14 @@
 \usepackage{tikz}
 \usetikzlibrary{cd}
 \usepackage{amsthm}
-\newtheorem{definition}{Definition}
 \usepackage{hyperref}
 
 
 
 \begin{document}
-\begin{definition}[Kan extension]
-	We call \emph{Kan extension} of a functor $F:\mathcal{C}\rightarrow\mathcal{D}$ along the functor $L:\mathcal{C} \rightarrow \mathcal{C}'$, 
-	the functor $Lan(F):\mathcal{C}'\rightarrow \mathcal{D}$
+
+	We call \emph{Right Kan extension} of a functor $F:\mathcal{C}\rightarrow\mathcal{D}$ along the functor $R:\mathcal{D} \rightarrow \mathcal{D}'$, 
+	the functor $Ran(F):\mathcal{C}'\rightarrow \mathcal{D}$
 	together with the nat.t. $\eta_F: F \Rightarrow F\circ L$ such that:\\
 	The following commutes
 	\begin{tikzcd}
@@ -24,7 +23,6 @@
 		\\ 
 		& \mathcal{C}' \ar[ur,"Lan(F)"'] &
 	\end{tikzcd}
-\end{definition}
 	\href{https://ncatlab.org/nlab/show/Kan+extension#OrdinaryKanExtensions}{Todo}
 
 \end{document}

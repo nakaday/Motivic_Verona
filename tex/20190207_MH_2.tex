@@ -8,7 +8,7 @@
 \chapter{Lecture 2}
 \section{Interlude: Simplicial Sets}
 \begin{definition}
-	$\Delta$ is the category of (nonempty) finite linearly ordered sets with order-preserving morphisms. So its objects consist of the ordered set $[n] = \{1 < 2 < \dots < n\}$ for each $n \in \Z^{\ge 0}$.
+	$\Delta$ is the category of (nonempty) finite linearly ordered sets with order-preserving morphisms. So its objects consist of the ordered sets $$[n] = \{1 < 2 < \dots < n\}$$ for each $n \in \Z^{\ge 0}$.
 \end{definition}
 
 \begin{example}
@@ -41,6 +41,7 @@ Every morphism in $\Delta$ is the composition of such morphisms.
 There are relations between these morphisms, but we won't mention them here. 
 \end{remark}
 
+The upshot, is to consider functors form $\Delta$.
 \begin{definition}
 	A \emph{simplicial set} is a functor $X: \Delta^{op} \to \mathbf{Set}$, say $[n] \mapsto X_n$. 
 \end{definition}
@@ -55,7 +56,7 @@ We can specify such a functor by the images of its objects and the $\delta_i$ an
 [The category $\Delta$ has some relations between the face and boundary maps. Any collection of sets together with appropriate arrows between them which satisfy (the opposite of) these relations is a simplicial set.]
 
 \begin{definition}
-	The \emph{$n$-simplex} $\Delta^n$ is defined to be
+	The \emph{standard $n$-simplex} $\Delta^n$ is defined to be
 	\[
 	\Delta^n := \{(x_0,\dots,x_n) \in \R^{n+1}\,|\, 0 \le x_i \le 1, \sum x_i = 1\}.
 	\]
@@ -68,7 +69,7 @@ More formally:
 \begin{definition}
 	Given a simplicial set $X_\bullet$ its \emph{geometric realization} is defined to be
 	\[
-	|X_\bullet| := \left(\prod_{n \in \N_0} X_n \times \Delta^n\right)/\sim = \int^n X_n \times \Delta^n.
+	|X_\bullet| := \left(\coprod_{n \in \N_0} X_n \times \Delta^n\right)/\sim = \int^n X_n \times \Delta^n.
 	\]
 	where $\sim$ identifies simplicies as prescribed by the ``face maps''. (It's a special kind of colimit.) We can define the geometric realization of a morphism between simplicial sets and so we get a functor $|-|: \mathbf{SimpSet} \to \mathbf{Top}$. 
 \end{definition}
@@ -136,15 +137,32 @@ Given two localizations
 this dotted arrow exists (by the universal property) if $L'(F(W)) \subseteq \op{Iso}\mathcal{D}[V^{-1}]$. But the functor $F$ doesn't know anything about $W$ and $V$ so we can't expect this to happen in general.
 
 \begin{example}[(Colimits)]
-	Let $\Cc = \op{Top}$. Pushout: glue along their boundary. We definitely want pushouts, gluing things along their boundaries, etc. Unfortunately the pushout functor does not respect equivalences - see video for a nice example.
+	Let $\Cc = \op{Top}$. Pushout: glue along their boundary. We definitely want pushouts, gluing things along their boundaries, etc.
+	\begin{minipage}[t]{0.5\textwidth}
+		\input{\rootpath/tex/assets/diag4}
+	\end{minipage}
+	\begin{minipage}[t]{0.5\textwidth}
+		\input{\rootpath/tex/assets/diag4b}
+	\end{minipage}
+
+	Unfortunately the pushout functor does not respect equivalences - see video for a nice example.
+	\input{\rootpath/tex/assets/diag4c}
 \end{example}
 
 \begin{example}[(Limits)]
-	See video.
+
+		\input{\rootpath/tex/assets/diag5b}
+
+		\input{\rootpath/tex/assets/diag5}
+
+	(See video.)
 \end{example}
 
 \begin{example}
-	Let $\Cc = \mathbf{Cat}$. Consider a category as $s,t: \op{Mor} \to \op{Ob}$, which specifies the source and target of any morphism. It's cool but long.
+	Let $\Cc = \mathbf{Cat}$ be a small category. Consider a category as $s,t: \op{Mor} \to \op{Ob}$, which specifies the source and target of any morphism.
+
+	\input{\rootpath/tex/assets/diag6}
+		
 \end{example}
 
 Three examples of failure. What do we do about it? The remedy is \emph{derived functors}. 
@@ -156,7 +174,20 @@ Suppose we have a diagram
 		\Cc[W^{-1}] & \mathcal{D}[V^{-1}].
 	\end{tikzcd}
 \end{center}
-as above. The answer to our problem is the notion of a Kan extensions, more specifically the left/right Kan extension of $L' \circ F$ along $L$. It's not obvious they exist, and they won't in general. [\textbf{See video}]. 
+as above. The answer to our problem is the notion of a Kan extensions, more specifically the left/right Kan extension of $L' \circ F$ along $L$. 
+
+\begin{minipage}[t]{0.5\textwidth}
+\begin{definition}[Kan extension]
+	\input{\rootpath/tex/assets/leftkandef}
+\end{definition}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{definition}[Right Kan extension]
+	\input{\rootpath/tex/assets/rightkandef}
+\end{definition}
+\end{minipage}
+
+In our case, is not obvious they exist, and they won't in general. [\textbf{See video}]. 
 
 Suppose we have a full subcategory $\widetilde{\Cc}$ of $\Cc$ on which $F$ \emph{does} preserve weak equivalences (that is, sends $V$ to $W$) and such that $\widetilde{\Cc}[(W \cap \widetilde{\Cc})^{-1}] \cong \Cc[W^{-1}]$. So you add some isomorphisms and everything in $\Cc$ becomes isomorphic to one of the objects in $\widetilde{\Cc}$. Then we can define
 \begin{center}
@@ -199,7 +230,7 @@ and the arrow \emph{does} exist.
 	Consider the colimit functor $\mathbf{Top}^{diag} \xrightarrow{\op{colim}}\mathbf{Top}$. Fact: ths preserves weak equivalences of diagram of the form
 	\begin{center}
 		\begin{tikzcd}
-			A \arrow[r,"g"] \arrow[d,"f"] & B\\
+			A \arrow[r,rightarrowtail,"g"] \arrow[d,rightarrowtail,"f"] & B\\
 			C
 		\end{tikzcd}
 	\end{center}
