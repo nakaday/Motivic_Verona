@@ -159,7 +159,7 @@ this dotted arrow exists (by the universal property) if $L'(F(W)) \subseteq \op{
 \end{example}
 
 \begin{example}
-	Let $\Cc = \mathbf{Cat}$ be a small category. Consider a category as $s,t: \op{Mor} \to \op{Ob}$, which specifies the source and target of any morphism.
+	Let $\Cc = \mathbf{Cat}$ be a small category. A way to view it is as a pair of sets $\op{Mor},\op{Ob}$ together with a pair of functions as $s,t: \op{Mor} \to \op{Ob}$ specifying source and target of any morphism.
 
 	\input{\rootpath/tex/assets/diag6}
 		
@@ -174,18 +174,11 @@ Suppose we have a diagram
 		\Cc[W^{-1}] & \mathcal{D}[V^{-1}].
 	\end{tikzcd}
 \end{center}
-as above. The answer to our problem is the notion of a Kan extensions, more specifically the left/right Kan extension of $L' \circ F$ along $L$. 
+as above. The answer to our problem is the notion of a Kan extensions, more specifically the left/right Kan extension of $L' \circ F$ along $L$.
+(For the general definition of Kan extension see \href{https://ncatlab.org/nlab/show/Kan+extension}{Nlab def 2.4}
 
-\begin{minipage}[t]{0.5\textwidth}
-\begin{definition}[Kan extension]
 	\input{\rootpath/tex/assets/leftkandef}
-\end{definition}
-\end{minipage}
-\begin{minipage}[t]{0.5\textwidth}
-\begin{definition}[Right Kan extension]
-	\input{\rootpath/tex/assets/rightkandef}
-\end{definition}
-\end{minipage}
+
 
 In our case, is not obvious they exist, and they won't in general. [\textbf{See video}]. 
 

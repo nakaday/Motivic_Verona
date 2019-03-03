@@ -112,7 +112,7 @@ We have at the same time two pullbacks:
 \begin{minipage}[t]{0.5\textwidth}
 \begin{center}
 	\begin{tikzcd}
-		\left(\dummyG\right) \ar[r] \ar[d]& EG \ar[d]
+		\left(\dummyG\right) \ar[r] \ar[d] \arrow[dr, phantom, "\lrcorner", very near start]& EG \ar[d]
 		\\
 		\left(\dummyast\right) \ar[r] & BG
 	\end{tikzcd}
@@ -121,7 +121,7 @@ We have at the same time two pullbacks:
 \begin{minipage}[t]{0.5\textwidth}
 \begin{center}
 	\begin{tikzcd}
-		\left(\dummyast\right) \ar[r] \ar[d]& \left(\dummyast\right) \ar[d]
+		\left(\dummyast\right) \ar[r] \ar[d]\arrow[dr, phantom, "\lrcorner", very near start]& \left(\dummyast\right) \ar[d]
 		\\
 		\left(\dummyast\right) \ar[r] & BG
 	\end{tikzcd}
